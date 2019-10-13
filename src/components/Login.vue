@@ -2,12 +2,13 @@
 	<v-container fluid align-content-center class="s-bg is-fullheight">
 		<v-layout align-center justify-center row fill-height>
 			<div class="text-md-center">
-				<h1 class="font-weight-light display-3 white--text">
-					KITE
-					<sup style="font-size:0.4em; top: -1.2em;">0.1</sup>
-				</h1>
-
-				<h2 class="font-italic font-weight-regular white--text mb-5">Discover what Google knows on you</h2>
+				<img style="max-height:200px; " :src="require('../assets/anonymous_logo.png')" />
+				<h1 class="font-weight-light display-3 white--text">Who Am I ?</h1>
+				<br />
+				<h2
+					class="font-italic font-weight-regular white--text mb-5"
+				>Discover what Google knows about you !</h2>
+				<br />
 				<v-btn color="blue" depressed dark large @click="login">Log in with Google</v-btn>
 			</div>
 		</v-layout>
@@ -36,7 +37,7 @@ export default {
 </script>
 <style scoped>
 .s-bg {
-	background-color: #2c3e50;
+	background-color: #2980b9;
 }
 
 .is-fullheight {
