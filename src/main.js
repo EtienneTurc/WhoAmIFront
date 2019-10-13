@@ -4,6 +4,17 @@ import router from './router/router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+axios.interceptors.response.use((res) => {
+	if (res.data.token) {
+		localStorage.setItem("token", JSON.stringify(res.data.token))
+		delete res.data.token
+	}
+	return res;
+}, err => {
+	console.log(err)
+	return Promise.reject(err);
+});
+
 Vue.use(VueAxios, axios)
 
 import App from './App.vue'

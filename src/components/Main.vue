@@ -18,7 +18,8 @@ import utils from "../utils/utils"
 
 export default {
 	data: () => ({
-		events: {}
+		events: {},
+		query: {}
 	}),
 	methods: {
 		login: function() {
@@ -26,16 +27,22 @@ export default {
 		}
 	},
 	created() {
-		this.$http
-			.get(process.env.VUE_APP_API_URL + "/google/calendar", {
-				headers: utils.getCode()
-			})
-			.then(res => {
-				this.events = res.data[0]
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		this.query = this.$route.query
+		this.getCalendar()
+	},
+	methods: {
+		getCalendar() {
+			this.$http
+				.get(process.env.VUE_APP_API_URL + "/google/calendar", {
+					headers: utils.getHeaders(this.query.code)
+				})
+				.then(res => {
+					this.events = res.data.events[0]
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		}
 	}
 }
 </script>

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import axios from 'axios'
 
 import Login from '@/components/Login'
 import Main from '@/components/Main'
@@ -21,13 +22,7 @@ let router = new Router({
 
 router.beforeEach(async (to, from, next) => {
 	// Check auth
-	if (to.query.code) {
-		localStorage.setItem('code', to.query.code)
-		next({
-			path: to.path,
-			query: {}
-		})
-	} else if (localStorage.getItem('code') == null && to.path != "/login") {
+	if (localStorage.getItem('token') == null && !to.query.code && to.path != "/login") {
 		next({
 			path: '/login',
 		})

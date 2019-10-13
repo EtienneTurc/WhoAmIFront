@@ -21,6 +21,7 @@ export default {
 	data: () => ({}),
 	methods: {
 		login: function() {
+			localStorage.removeItem("token")
 			this.$http
 				.get(process.env.VUE_APP_API_URL + "/login/google")
 				.then(res => {
