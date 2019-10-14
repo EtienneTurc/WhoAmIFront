@@ -10,11 +10,13 @@
 					<v-layout class="ml-3" row wrap>
 						<v-flex xs6>
 							<b>Last name</b>
-							<br />TURC
+							<br />
+							{{capitalizeFirstLetter(user_info.names[0].familyName.toLowerCase())}}
 						</v-flex>
 						<v-flex xs6>
 							<b>First name</b>
-							<br />Etienne
+							<br />
+							{{capitalizeFirstLetter(user_info.names[0].givenName.toLowerCase())}}
 						</v-flex>
 
 						<v-flex xs6>
@@ -29,6 +31,10 @@
 						<v-flex xs6>
 							<b>Gender</b>
 							<br />Mâle
+						</v-flex>
+						<v-flex xs6>
+							<b>Addresse mail</b>
+							<br />etienne.turc@gmail.com
 						</v-flex>
 					</v-layout>
 				</v-stepper-content>
@@ -54,6 +60,7 @@ import utils from "../utils/utils"
 export default {
 	data: () => ({
 		events: {},
+		user_info: {},
 		query: {}
 	}),
 	methods: {
@@ -63,6 +70,7 @@ export default {
 	},
 	created() {
 		this.query = this.$route.query
+		this.getPeopleInfo()
 		this.getCalendar()
 	},
 	methods: {
@@ -78,6 +86,22 @@ export default {
 				.catch(err => {
 					console.log(err)
 				})
+		},
+		getPeopleInfo() {
+			this.$http
+				.get(process.env.VUE_APP_API_URL + "/google/people", {
+					headers: utils.getHeaders(this.query.code)
+				})
+				.then(res => {
+					this.user_info = res.data.data
+					this.$router.replace({ query: {} })
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		},
+		capitalizeFirstLetter(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1)
 		}
 	}
 }
