@@ -4,6 +4,8 @@ import router from './router/router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import App from './App.vue'
+
 axios.interceptors.response.use((res) => {
 	if (res.data.token) {
 		localStorage.setItem("token", JSON.stringify(res.data.token))
@@ -17,9 +19,12 @@ axios.interceptors.response.use((res) => {
 
 Vue.use(VueAxios, axios)
 
-import App from './App.vue'
+Vue.filter('prettyName', function (name) {
+	let string = name.toLowerCase()
+	return string.charAt(0).toUpperCase() + string.slice(1)
+})
 
-// Vue.use(vuetify, { iconfont: 'mdi' })
+
 
 
 new Vue({

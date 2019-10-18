@@ -1,6 +1,7 @@
 <template>
 	<v-container fluid align-content-center class="s-bg is-fullheight">
 		<v-layout justify-center row>
+			<img style="max-height:200px; " :src="require('../assets/anonymous_logo.png')" />
 			<v-stepper class="mt-12 stepper" vertical>
 				<v-stepper-step editable complete step="1">
 					<h1>Basic informations</h1>
@@ -11,15 +12,15 @@
 						<v-flex xs6>
 							<b>Last name</b>
 							<br />
-							{{capitalizeFirstLetter(user_info.names[0].familyName.toLowerCase())}}
+							<span v-if="user_info.names">{{ user_info.names[0].familyName | prettyName }}</span>
 						</v-flex>
 						<v-flex xs6>
 							<b>First name</b>
 							<br />
-							{{capitalizeFirstLetter(user_info.names[0].givenName.toLowerCase())}}
+							<span v-if="user_info.names">{{ user_info.names[0].givenName | prettyName }}</span>
 						</v-flex>
 
-						<v-flex xs6>
+						<!-- <v-flex xs6>
 							<b>Adresse</b>
 							<br />Camille Claudel
 						</v-flex>
@@ -31,10 +32,11 @@
 						<v-flex xs6>
 							<b>Gender</b>
 							<br />Mâle
-						</v-flex>
+						</v-flex>-->
 						<v-flex xs6>
 							<b>Addresse mail</b>
-							<br />etienne.turc@gmail.com
+							<br />
+							<span v-if="user_info.emailAddresses">{{ user_info.emailAddresses[0].value }}</span>
 						</v-flex>
 					</v-layout>
 				</v-stepper-content>
@@ -44,10 +46,7 @@
 				</v-stepper-step>
 
 				<v-stepper-content step="2">
-					<div v-for="event in events" :key="event.id">
-						{{event.description}}
-						<br />
-					</div>
+					Info to complete
 				</v-stepper-content>
 			</v-stepper>
 		</v-layout>
@@ -61,7 +60,7 @@ export default {
 	data: () => ({
 		events: {},
 		user_info: {},
-		query: {}
+		query: {},
 	}),
 	methods: {
 		login: function() {
@@ -94,14 +93,10 @@ export default {
 				})
 				.then(res => {
 					this.user_info = res.data.data
-					this.$router.replace({ query: {} })
 				})
 				.catch(err => {
 					console.log(err)
 				})
-		},
-		capitalizeFirstLetter(string) {
-			return string.charAt(0).toUpperCase() + string.slice(1)
 		}
 	}
 }
