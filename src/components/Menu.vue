@@ -22,5 +22,7 @@ export default {
 }
 .header {
         border-bottom-style: solid;
+        border-bottom-width: 2px;
+        padding-left: 5em;
 }
 </style>
