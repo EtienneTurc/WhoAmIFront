@@ -41,37 +41,10 @@ import BasicInfo from "@/components/tabs/BasicInfo"
 import Calendar from "@/components/tabs/Calendar"
 
 export default {
-	data: () => ({
-		events: {},
-		user_info: {},
-		query: {},
-	}),
 	components: {
 		BasicInfo: BasicInfo,
 		Calendar: Calendar
 	},
-	methods: {
-		login: function() {
-			utils.login()
-		},
-		// getCalendar: function() {
-		// 	this.$http
-		// 		.get(process.env.VUE_APP_API_URL + "/google/calendar", {
-		// 			headers: utils.getHeaders(this.query.code)
-		// 		})
-		// 		.then(res => {
-		// 			this.events = res.data.events
-		// 			this.$router.replace({ query: {} })
-		// 		})
-		// 		.catch(err => {
-		// 			console.log(err)
-		// 		})
-		// },
-	},
-	// created: function() {
-	// 	this.query = this.$route.query
-	// 	this.getCalendar()
-	// },
 }
 </script>
 
