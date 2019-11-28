@@ -16,12 +16,16 @@ let router = new Router({
         path: '/',
         name: 'ResultsPage',
         component: ResultsPage,
+        meta: {
+            title: "WhoAmI.com"
+        }
     }],
     mode: 'history',
 })
 
 router.beforeEach(async(to, from, next) => {
-    // Check auth
+    document.title = to.meta.title
+        // Check auth
     if (localStorage.getItem('token') == null && !to.query.code && to.path != "/login") {
         next({
             path: '/login',
