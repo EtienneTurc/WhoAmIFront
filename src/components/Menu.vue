@@ -1,6 +1,11 @@
 <template>
         <div class="header">
-                <span class="app-name">WhoAmI.com</span>
+                <v-app-bar>
+                        <v-toolbar-title class="app-name">WhoAmI.com</v-toolbar-title>
+                        <v-spacer />
+                        <v-btn>Who are we?</v-btn>
+                </v-app-bar>
+                
         </div>
 </template>
 
@@ -24,5 +29,6 @@ export default {
         border-bottom-style: solid;
         border-bottom-width: 2px;
         padding-left: 5em;
+        padding-right: 5em;
 }
 </style>
