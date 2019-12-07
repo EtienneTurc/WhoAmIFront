@@ -9,7 +9,7 @@
         <v-col>
           <router-view class="nav-view elevation-6" />
         </v-col>
-        <v-col cols="3">
+        <v-col cols="3" class="d-none d-lg-block">
           <v-container class="twitter elevation-6">
             <TwitterFeed
               src="https://twitter.com/paul_azoulai/timelines/1203370242132598784"
@@ -60,8 +60,5 @@ export default {
 }
 .menu {
   padding: 0;
-}
-.timeline-Header {
-  border: solid red !important;
 }
 </style>
