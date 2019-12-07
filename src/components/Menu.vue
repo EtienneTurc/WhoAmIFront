@@ -9,7 +9,14 @@
       <v-btn text class="white--text">Contact</v-btn>
     </span>
     <span class="menu-item log-out">
-      <v-btn class="secondary--text" @click="logout">Complete Log Out</v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" class="white--text" v-on="on" @click="logout"
+            >Log out</v-btn
+          >
+        </template>
+        <span>Log me out from all external accounts</span>
+      </v-tooltip>
     </span>
   </v-row>
 </template>
@@ -29,8 +36,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Fugaz+One&display=swap');
-
+@import url("https://fonts.googleapis.com/css?family=Fugaz+One&display=swap");
 
 .app-name {
   font-family: "Fugaz One", cursive;
