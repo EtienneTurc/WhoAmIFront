@@ -1,12 +1,12 @@
 <template>
   <v-row>
-    <span class="app-name">WhoAm.io</span>
+    <a @click="goToResults"><span class="app-name">WhoAm.io</span></a>
     <v-spacer></v-spacer>
     <span class="menu-item">
-      <v-btn text class="white--text">About us</v-btn>
+      <v-btn text class="white--text" @click="goToAbout">About us</v-btn>
     </span>
     <span class="menu-item">
-      <v-btn text class="white--text">Contact</v-btn>
+      <v-btn text class="white--text" @click="goToContact">Contact</v-btn>
     </span>
     <span class="menu-item log-out">
       <v-tooltip bottom>
@@ -30,6 +30,15 @@ export default {
     logout() {
       localStorage.removeItem("token");
       this.$router.push("login");
+    },
+    goToAbout() {
+      this.$router.push("About");
+    },
+    goToContact() {
+      this.$router.push("Contact");
+    },
+    goToResults() {
+      this.$router.push("/");
     }
   }
 };

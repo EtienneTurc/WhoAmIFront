@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import Login from '@/components/Login'
 import ResultsPage from '@/components/ResultsPage'
+import About from '@/components/About'
+import Contact from "@/components/Contact"
 
 Vue.use(Router)
 
@@ -18,6 +20,14 @@ let router = new Router({
         meta: {
             title: "WhoAmI.com"
         }
+    }, {
+        path: '/about',
+        name: 'About',
+        component: About
+    }, {
+        path: '/contact',
+        name: 'Contact',
+        component: Contact
     }],
     mode: 'history',
 })
