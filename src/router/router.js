@@ -32,6 +32,7 @@ router.beforeEach(async(to, from, next) => {
     } else {
         next()
     }
+    document.title = "WhoAmI"
 })
 
 export default router
