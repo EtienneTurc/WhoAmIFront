@@ -7,6 +7,10 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Axios from "axios";
 
+import {
+	store
+} from "../store/index"
+
 Vue.use(Router);
 
 let router = new Router({
@@ -40,14 +44,14 @@ let router = new Router({
 router.beforeEach(async (to, from, next) => {
 	document.title = to.meta.title;
 	// Check auth
-	if (localStorage.getItem("token")) {
+	if (store.state.tokenGoogle) {
 		next();
 	}
 	else if (to.query.code &&
 		to.path == "/code") {
 		try {
 			let res = await Axios.get(process.env.VUE_APP_API_URL + "/login/googleToken", { params: { code: to.query.code.toString() } })
-			localStorage.setItem("token", res.data)
+			store.commit("setTokenGoogle", res.data)
 			next({
 				path: "/"
 			});

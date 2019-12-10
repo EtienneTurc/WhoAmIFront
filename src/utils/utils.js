@@ -5,16 +5,10 @@ export default {
 	login() {
 		window.location.replace(LOGIN_URL)
 	},
-	getHeaders(code) {
+	getHeaders(vm) {
 		// The object to be passed as a header for authenticated requests
-		let headers = {}
-		let token = localStorage.getItem('token')
-		if (token) {
-			headers.token = token
+		return {
+			token: JSON.stringify(vm.$store.state.tokenGoogle)
 		}
-		if (code) {
-			headers.code = code
-		}
-		return headers
 	},
 }
