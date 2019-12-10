@@ -4,7 +4,7 @@
 
     <v-card-text>
       <v-divider></v-divider>
-      <Status name="Google"></Status>
+      <Status name="Google" storeStateName="googleConnected"></Status>
     </v-card-text>
   </v-card>
 </template>
@@ -13,7 +13,6 @@
 import Status from "@/components/Status.vue";
 
 export default {
-  data: () => ({}),
   components: { Status }
 };
 </script>
