@@ -1,15 +1,17 @@
 <template>
-  <v-container fluid align-content-center class="s-bg is-fullheight">
+  <v-container class="main-login">
+    <div class="title">
+      <p class="display-3">Log in</p>
+      <v-divider></v-divider>
+    </div>
+    <p
+      class="text-center font-italic font-weight-medium mb-10"
+    >Have you ever wondered what the web knew about you?</p>
+    <p
+      class="text-center title font-weight-medium mb-10 primary--text"
+    >Now, this is just one click away!</p>
     <v-layout align-center justify-center row fill-height>
-      <div class="text-md-center">
-        <h1 class="font-weight-light display-3 white--text">Who Am I ?</h1>
-        <br />
-        <h2
-          class="font-italic font-weight-regular white--text mb-5"
-        >Discover what Google knows about you !</h2>
-        <br />
-        <v-btn color="blue" depressed dark large @click="login">Log in with Google</v-btn>
-      </div>
+      <v-btn large @click="loginGoogle">Log in with Google</v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -20,7 +22,7 @@ import utils from "../utils/utils";
 export default {
   data: () => ({}),
   methods: {
-    login: function() {
+    loginGoogle: function() {
       localStorage.removeItem("token");
       this.$http
         .get(process.env.VUE_APP_API_URL + "/login/google")
@@ -43,8 +45,10 @@ export default {
   height: 100vh;
   width: 100vw;
 }
-
-body {
-  height: 100%;
+.title {
+  margin-bottom: 2em;
+}
+.main-login {
+  padding: 3em;
 }
 </style>
