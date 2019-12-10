@@ -22,6 +22,7 @@
         </v-col>
       </v-row>
     </v-content>
+
     <v-footer app class="footer" color="secondary">
       <Footer></Footer>
     </v-footer>
