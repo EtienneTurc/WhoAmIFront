@@ -5,52 +5,67 @@ import Login from "@/components/Login";
 import ResultsPage from "@/components/ResultsPage";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
+import Axios from "axios";
 
 Vue.use(Router);
 
 let router = new Router({
-    routes: [{
-            path: "/login",
-            name: "login",
-            component: Login
-        },
-        {
-            path: "/",
-            name: "ResultsPage",
-            component: ResultsPage,
-            meta: {
-                title: "WhoAmI.com"
-            }
-        },
-        {
-            path: "/about",
-            name: "About",
-            component: About
-        },
-        {
-            path: "/contact",
-            name: "Contact",
-            component: Contact
-        }
-    ],
-    mode: "history"
+	routes: [{
+		path: "/login",
+		name: "login",
+		component: Login
+	},
+	{
+		path: "/",
+		name: "ResultsPage",
+		component: ResultsPage,
+		meta: {
+			title: "WhoAmI.com"
+		}
+	},
+	{
+		path: "/about",
+		name: "About",
+		component: About
+	},
+	{
+		path: "/contact",
+		name: "Contact",
+		component: Contact
+	}
+	],
+	mode: "history"
 });
 
-router.beforeEach(async(to, from, next) => {
-    document.title = to.meta.title;
-    // Check auth
-    if (
-        localStorage.getItem("token") == null &&
-        !to.query.code &&
-        to.path == "/"
-    ) {
-        next({
-            path: "/login"
-        });
-    } else {
-        next();
-    }
-    document.title = "WhoAmI";
+router.beforeEach(async (to, from, next) => {
+	document.title = to.meta.title;
+	// Check auth
+	if (localStorage.getItem("token")) {
+		next();
+	}
+	else if (to.query.code &&
+		to.path == "/code") {
+		try {
+			let res = await Axios.get(process.env.VUE_APP_API_URL + "/login/googleToken", { params: { code: to.query.code.toString() } })
+			localStorage.setItem("token", res.data)
+			next({
+				path: "/"
+			});
+
+		} catch (error) {
+			next({
+				path: "/login"
+			});
+		}
+	} else {
+		if (to.path == "/login")
+			next()
+		else
+			next({
+				path: "/login"
+			});
+	}
+	document.title = "WhoAmI";
 });
 
 export default router;
