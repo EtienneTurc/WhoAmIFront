@@ -4,7 +4,7 @@
 
     <v-card-text>
       <v-divider></v-divider>
-      <Status name="Google" storeStateName="googleConnected"></Status>
+      <Status name="Google" storeStateName="tokenGoogle"></Status>
     </v-card-text>
   </v-card>
 </template>
