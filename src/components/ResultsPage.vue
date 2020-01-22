@@ -106,19 +106,19 @@ export default {
 		login: function() {
 			utils.login()
 		},
-		getCalendar: function() {
-			this.$http
-				.get(process.env.VUE_APP_API_URL + "/google/calendar", {
-					headers: utils.getHeaders(this)
-				})
-				.then(res => {
-					this.events = res.data.events
-					this.$router.replace({ query: {} })
-				})
-				.catch(err => {
-					console.log(err)
-				})
-		},
+		// getCalendar: function() {
+		// 	this.$http
+		// 		.get(process.env.VUE_APP_API_URL + "/google/calendar", {
+		// 			headers: utils.getHeaders(this)
+		// 		})
+		// 		.then(res => {
+		// 			console.log(res)
+		// 			this.events = res.data.events
+		// 		})
+		// 		.catch(err => {
+		// 			console.log(err)
+		// 		})
+		// }
 		getPeopleInfo() {
 			this.$http
 				.get(process.env.VUE_APP_API_URL + "/google/people", {
@@ -130,12 +130,24 @@ export default {
 				.catch(err => {
 					console.log(err)
 				})
+		},
+		getMails() {
+			this.$http
+				.get(process.env.VUE_APP_API_URL + "/google/gmail")
+				.then(res => {
+					console.log(res)
+					this.user_info = res.data.data
+				})
+				.catch(err => {
+					console.log(err)
+				})
 		}
 	},
 	created: function() {
 		this.query = this.$route.query
-		this.getPeopleInfo()
-		this.getCalendar()
+		// this.getPeopleInfo()
+		// this.getCalendar()
+		this.getMails()
 	}
 }
 </script>

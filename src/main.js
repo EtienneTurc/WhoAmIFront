@@ -7,6 +7,7 @@ import TwitterFeed from "vuejs-twitter-feed";
 
 
 Vue.use(TwitterFeed);
+Vue.use(require('vue-cookies'))
 
 
 import {
@@ -15,15 +16,17 @@ import {
 
 import App from "./App.vue";
 
-// axios.interceptors.request.use(
-// 	req => {
-// 		req.headers
-// 		return res;
-// 	},
-// 	err => {
-// 		return Promise.reject(err);
-// 	}
-// );
+axios.interceptors.response.use((response) => {
+	return response;
+}, function (error) {
+	// Do something with response error
+	if (error.response.status === 401) {
+		router.replace('/login');
+	}
+	return Promise.reject(error.response);
+});
+
+axios.defaults.withCredentials = true
 
 Vue.use(VueAxios, axios);
 
