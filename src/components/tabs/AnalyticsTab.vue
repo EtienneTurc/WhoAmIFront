@@ -2,9 +2,7 @@
   <v-card flat tile :loading="isLoading" class="card">
     <v-card-text v-if="!isLoading">{{ result }}</v-card-text>
     <v-card-text v-else>
-      <p>
-        We're computing your results, please hold on for a few more seconds!
-      </p>
+      <p>We're computing your results, please hold on for a few more seconds!</p>
     </v-card-text>
   </v-card>
 </template>
@@ -18,10 +16,12 @@ export default {
   methods: {
     getAnalyticsResults: function() {
       this.isLoading = true;
-      this.$http.get("http://localhost:5000" + "/analytics").then(res => {
-        this.result = res.data.result;
-        this.isLoading = false;
-      });
+      this.$http
+        .get(process.env.VUE_APP_API_URL + "/simpleAnalytics")
+        .then(res => {
+          this.result = res.data.result;
+          this.isLoading = false;
+        });
     }
   },
   created: function() {
