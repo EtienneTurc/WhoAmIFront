@@ -17,25 +17,7 @@ export default {
 		getAnalyticsResults: function() {
 			this.isLoading = true
 			this.$http
-				.get(process.env.VUE_APP_API_URL + "/analytics")
-				.then(res => {
-					this.result = res.data.result
-					this.isLoading = false
-				})
-		},
-		getMails() {
-			this.isLoading = true
-			this.$http
-				.get(process.env.VUE_APP_API_URL + "/google/gmail")
-				.then(res => {
-					this.result = res.data.result
-					this.isLoading = false
-				})
-		},
-		getDrive() {
-			this.isLoading = true
-			this.$http
-				.get(process.env.VUE_APP_API_URL + "/google/drive")
+				.get(process.env.VUE_APP_API_URL + "/simpleAnalytics")
 				.then(res => {
 					this.result = res.data.result
 					this.isLoading = false
@@ -43,7 +25,7 @@ export default {
 		}
 	},
 	created: function() {
-		this.getMails()
+		this.getAnalyticsResults()
 	}
 }
 </script>

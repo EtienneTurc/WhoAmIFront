@@ -1,6 +1,8 @@
 <template>
   <v-row>
-    <a @click="goToResults"><span class="app-name">WhoAm.io</span></a>
+    <a @click="goToResults">
+      <span class="app-name">WhoAm.io</span>
+    </a>
     <v-spacer></v-spacer>
     <span class="menu-item">
       <v-btn text class="white--text" @click="goToAbout">About us</v-btn>
@@ -11,9 +13,7 @@
     <span class="menu-item log-out">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" class="white--text" v-on="on" @click="logout"
-            >Log out</v-btn
-          >
+          <v-btn color="primary" class="white--text" v-on="on" @click="logout">Log out</v-btn>
         </template>
         <span>Log me out from all external accounts</span>
       </v-tooltip>

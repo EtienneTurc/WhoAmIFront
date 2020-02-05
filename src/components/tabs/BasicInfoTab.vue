@@ -4,31 +4,23 @@
       <v-flex xs5>
         <b>Last name</b>
         <br />
-        <span v-if="user_info.names">
-          {{ user_info.names[0].familyName | prettyName }}
-        </span>
+        <span v-if="user_info.names">{{ user_info.names[0].familyName | prettyName }}</span>
       </v-flex>
       <v-flex xs5>
         <b>First name</b>
         <br />
-        <span v-if="user_info.names">
-          {{ user_info.names[0].givenName | prettyName }}
-        </span>
+        <span v-if="user_info.names">{{ user_info.names[0].givenName | prettyName }}</span>
       </v-flex>
 
       <v-flex xs5>
         <b>Mail address</b>
         <br />
-        <span v-if="user_info.emailAddresses">
-          {{ user_info.emailAddresses[0].value }}
-        </span>
+        <span v-if="user_info.emailAddresses">{{ user_info.emailAddresses[0].value }}</span>
       </v-flex>
       <v-flex xs5>
         <b>Calendar events found</b>
         <br />
-        <span v-if="user_info.emailAddresses">
-          {{ this.events.length }}
-        </span>
+        <span v-if="user_info.emailAddresses && !isLoading">{{ this.events.length }}</span>
       </v-flex>
     </v-card-text>
   </v-card>
@@ -44,6 +36,18 @@ export default {
     isLoading: true
   }),
   methods: {
+    getSimpleAnalytics: function() {
+      this.$http
+        .get(process.env.VUE_APP_API_URL + "/analytics/simple", {
+          headers: utils.getHeaders(this)
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     getCalendar: function() {
       this.isLoading = true;
       this.$http
@@ -51,7 +55,7 @@ export default {
           headers: utils.getHeaders(this)
         })
         .then(res => {
-          this.events = res.data.events;
+          this.events = res.data;
           this.$router.replace({ query: {} });
           this.isLoading = false;
         })
@@ -70,13 +74,15 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
+          return err;
         });
     }
   },
   created: function() {
+    console.log("hey");
     this.getPeopleInfo();
-    this.getCalendar();
+    // this.getCalendar();
+    this.getSimpleAnalytics();
   }
 };
 </script>
