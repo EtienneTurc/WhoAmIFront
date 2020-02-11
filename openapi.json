@@ -59,7 +59,15 @@
           "200": {
             "description": "success",
             "schema": {
-              "$ref": "#/definitions/BasicUserInfo"
+              "type": "object",
+              "properties": {
+                "sent": {
+                  "$ref": "#/definitions/MailSummary"
+                },
+                "received": {
+                  "$ref": "#/definitions/MailSummary"
+                }
+              }
             }
           }
         }
@@ -109,6 +117,17 @@
             "month": { "type": "integer" },
             "year": { "type": "integer" }
           }
+        }
+      }
+    },
+    "MailSummary": {
+      "type": "object",
+      "properties": {
+        "number": { "type": "integer" },
+        "startDate": { "type": "date" },
+        "distribution": {
+          "type": "array",
+          "items": { "type": "integer" }
         }
       }
     }
