@@ -6,15 +6,11 @@
         <v-divider></v-divider>
       </div>
       <v-layout justify-center row>
-        <v-tabs
-          class="elevation-6"
-          background-color="secondary"
-          dark
-          :grow="true"
-        >
+        <v-tabs class="elevation-6" background-color="secondary" dark :grow="true">
           <v-tabs-slider color="orange"></v-tabs-slider>
           <v-tab :href="'#tab_basic_info'">Basic information</v-tab>
           <v-tab :href="'#tab_analytics'">Analytics</v-tab>
+          <v-tab :href="'#tab_id'">ID</v-tab>
 
           <v-tab-item :value="'tab_basic_info'">
             <BasicInfoTab></BasicInfoTab>
@@ -22,6 +18,10 @@
 
           <v-tab-item :value="'tab_analytics'">
             <AnalyticsTab></AnalyticsTab>
+          </v-tab-item>
+
+          <v-tab-item :value="'tab_id'">
+            <IDTab></IDTab>
           </v-tab-item>
         </v-tabs>
       </v-layout>
@@ -44,11 +44,13 @@
 import utils from "../utils/utils";
 import BasicInfoTab from "./tabs/BasicInfoTab";
 import AnalyticsTab from "./tabs/AnalyticsTab";
+import IDTab from "./tabs/IDTab";
 
 export default {
   components: {
     BasicInfoTab,
-    AnalyticsTab
+    AnalyticsTab,
+    IDTab
   }
 };
 </script>
