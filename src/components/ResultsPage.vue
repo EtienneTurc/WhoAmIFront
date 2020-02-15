@@ -6,11 +6,20 @@
         <v-divider></v-divider>
       </div>
       <v-layout justify-center row>
-        <v-tabs class="elevation-6" background-color="secondary" dark :grow="true">
+        <v-tabs
+          class="elevation-6"
+          background-color="secondary"
+          dark
+          :grow="true"
+        >
           <v-tabs-slider color="orange"></v-tabs-slider>
+          <v-tab :href="'#tab_id'">ID</v-tab>
           <v-tab :href="'#tab_basic_info'">Basic information</v-tab>
           <v-tab :href="'#tab_analytics'">Analytics</v-tab>
-          <v-tab :href="'#tab_id'">ID</v-tab>
+
+          <v-tab-item :value="'tab_id'">
+            <IDTab></IDTab>
+          </v-tab-item>
 
           <v-tab-item :value="'tab_basic_info'">
             <BasicInfoTab></BasicInfoTab>
@@ -18,10 +27,6 @@
 
           <v-tab-item :value="'tab_analytics'">
             <AnalyticsTab></AnalyticsTab>
-          </v-tab-item>
-
-          <v-tab-item :value="'tab_id'">
-            <IDTab></IDTab>
           </v-tab-item>
         </v-tabs>
       </v-layout>
@@ -51,6 +56,25 @@ export default {
     BasicInfoTab,
     AnalyticsTab,
     IDTab
+  },
+  methods: {
+    getGoogleData: function() {
+      this.$store.commit("setFetchingState", true);
+      this.$http
+        .get(process.env.VUE_APP_API_URL + "/google/", {
+          headers: utils.getHeaders(this)
+        })
+        .then(res => {
+          this.$store.commit("setGoogleData", res.data);
+          this.$store.commit("setFetchingState", false);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  created() {
+    this.getGoogleData();
   }
 };
 </script>
