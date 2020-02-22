@@ -20,7 +20,7 @@
             {{ this.$store.state.googleData.people.firstName | prettyName }}
           </div>
         </div>
-        <div class="name id-info-block">
+        <div class="date id-info-block">
           <div class="id-info-label">Né(e) le :</div>
           <div class="id-info-item">
             {{ this.$store.state.googleData.people.birthDate | prettyDate }}
@@ -28,7 +28,9 @@
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) mail :</div>
-          <div class="id-info-item">pazoulai@gmail.com</div>
+          <div class="id-info-item">
+            {{ this.$store.state.googleData.people.mails }}
+          </div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) postale(s) :</div>
@@ -57,6 +59,10 @@
 }
 
 .name {
+}
+
+.date {
+  margin-left: 100px !important;
 }
 
 .id-info-label {
