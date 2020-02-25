@@ -5,7 +5,7 @@
     </a>
     <v-spacer></v-spacer>
     <span class="menu-item">
-      <v-btn text class="white--text" @click="$router.push('About')">About us</v-btn>
+      <v-btn text class="white--text" @click="$router.push('About')">A propos</v-btn>
     </span>
     <span class="menu-item">
       <v-btn text class="white--text" @click="$router.push('Contact')">Contact</v-btn>
@@ -13,9 +13,9 @@
     <span class="menu-item log-out">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" class="white--text" v-on="on" @click="logout">Log out</v-btn>
+          <v-btn color="#772D2D" class="white--text" v-on="on" @click="logout">Déconnexion</v-btn>
         </template>
-        <span>Log me out from all external accounts</span>
+        <span>Me déconnecter de tous mes comptes</span>
       </v-tooltip>
     </span>
   </v-row>
@@ -23,9 +23,6 @@
 
 <script>
 export default {
-  data: () => ({
-    loggedIn: false
-  }),
   methods: {
     logout() {
       this.$store.commit("unsetTokenGoogle");

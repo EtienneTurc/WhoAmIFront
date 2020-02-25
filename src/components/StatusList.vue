@@ -5,6 +5,8 @@
     <v-card-text>
       <v-divider></v-divider>
       <Status name="Google" storeStateName="tokenGoogle"></Status>
+      <Status name="Facebook" storeStateName="tokenGoogle"></Status>
+      <Status name="LinkedIn" storeStateName="tokenGoogle"></Status>
     </v-card-text>
   </v-card>
 </template>
