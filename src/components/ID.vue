@@ -1,36 +1,32 @@
 <template>
   <div class="main">
     <div class="header">
-      <div class="white--text text-uppercase header-text">
-        Carte d'identité WEB
-      </div>
+      <div class="white--text text-uppercase header-text">Carte d'identité WEB</div>
     </div>
     <div class="center">
       <div class="picture-avatar"></div>
       <div class="id-info">
         <div class="name id-info-block" v-if="$store.state.googleData.people">
           <div class="id-info-label">Nom :</div>
-          <div class="id-info-item">
-            {{ this.$store.state.googleData.people.lastName | prettyName }}
-          </div>
+          <div class="id-info-item">{{ this.$store.state.googleData.people.lastName | prettyName }}</div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Prénom :</div>
-          <div class="id-info-item">
-            {{ this.$store.state.googleData.people.firstName | prettyName }}
-          </div>
+          <div class="id-info-item">{{ this.$store.state.googleData.people.firstName | prettyName }}</div>
         </div>
         <div class="date id-info-block">
           <div class="id-info-label">Né(e) le :</div>
-          <div class="id-info-item">
-            {{ this.$store.state.googleData.people.birthDate | prettyDate }}
-          </div>
+          <div class="id-info-item">{{ this.$store.state.googleData.people.birthDate | prettyDate }}</div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) mail :</div>
-          <div class="id-info-item">
-            {{ this.$store.state.googleData.people.mails }}
-          </div>
+          <ul>
+            <li
+              v-for="mail in this.$store.state.googleData.people.mails"
+              v-bind:key="mail"
+              class="id-info-item"
+            >{{mail}}</li>
+          </ul>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) postale(s) :</div>
@@ -56,13 +52,6 @@
   background-color: #c4c4c4;
   border-radius: 31px;
   padding: 20px;
-}
-
-.name {
-}
-
-.date {
-  margin-left: 100px !important;
 }
 
 .id-info-label {
@@ -118,9 +107,7 @@
     margin-top: auto;
   }
   .id-info {
-    // position: absolute;
     background-color: transparent;
-    // left: 150px;
     height: 100%;
     width: 70%;
     display: flex;
