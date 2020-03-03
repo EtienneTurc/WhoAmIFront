@@ -27,6 +27,7 @@ export default {
       this.$http
         .get(process.env.VUE_APP_API_URL + "/login/google")
         .then(res => {
+          this.$store.commit("setGoogleConnectionState", true);
           window.location.replace(res.data);
         })
         .catch(err => {

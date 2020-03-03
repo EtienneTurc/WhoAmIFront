@@ -1,25 +1,32 @@
 <template>
   <v-app class="app">
-    <v-app-bar app class="menu elevation-6 secondary">
+    <v-app-bar app dark class="elevation-6 primary">
       <Menu></Menu>
     </v-app-bar>
 
     <v-content>
-      <v-row class="page-content">
-        <v-col cols="2" class="status">
-          <StatusList></StatusList>
-        </v-col>
-        <v-col>
-          <router-view class="nav-view elevation-6" />
-        </v-col>
-        <!-- <v-col cols="6" class="d-none d-lg-block">
-          <v-container class="twitter elevation-6 pa-0">
-            <TwitterFeed src="https://twitter.com/vuejs" data-link-color="#E79723"></TwitterFeed>
-          </v-container>
-        </v-col>-->
-      </v-row>
+      <router-view>
+        <IDSection></IDSection>
+      </router-view>
     </v-content>
 
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list-item>
+        <v-list-item-avatar>
+          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>John Leider</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item>test</v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-footer app class="footer" color="secondary">
       <Footer></Footer>
     </v-footer>
@@ -29,14 +36,20 @@
 <script>
 import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
-import StatusList from "@/components/StatusList";
+// import ID from "@/components/ID";
+import IDSection from "@/components/sections/IDSection";
 
 export default {
   name: "App",
   components: {
     Menu,
     Footer,
-    StatusList
+    IDSection
+  },
+  data: () => {
+    return {
+      drawer: null
+    };
   }
 };
 </script>
@@ -61,13 +74,10 @@ export default {
 .col {
   margin: 15px;
 }
-.menu {
-  padding: 0;
-}
 .status {
   height: 3em;
 }
 .app {
-  background-color: rgb(35, 39, 41);
+  // background-color: rgb(35, 39, 41);
 }
 </style>
