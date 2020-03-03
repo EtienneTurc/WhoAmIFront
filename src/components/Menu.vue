@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-app-bar-nav-icon @click="alert(1)"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="$store.commit('setDrawerState')"></v-app-bar-nav-icon>
     <a @click="$router.push('/')">
       <span class="app-name">
         <img src="../assets/img/logo.png" class="logo" />

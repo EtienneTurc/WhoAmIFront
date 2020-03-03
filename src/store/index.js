@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
     googleConnected: false,
     googleData: null,
     awaitingGoogleConnection: false,
-    fetchingState: false
+    fetchingState: false,
+    drawerOpen: false
   },
   mutations: {
     setGoogleData(state, googleData) {
@@ -30,6 +31,9 @@ export const store = new Vuex.Store({
     },
     setFetchingState(state, fetchingState) {
       state.fetchingState = fetchingState;
+    },
+    setDrawerState(state) {
+      state.drawerOpen = !state.drawerOpen;
     }
   }
 });

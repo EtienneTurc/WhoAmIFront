@@ -10,20 +10,25 @@
       </router-view>
     </v-content>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer
+      app
+      v-model="$store.state.drawerOpen"
+      absolute
+      temporary
+      hide-overlay="true"
+      style="margin-top: 64px;"
+    >
       <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-        </v-list-item-avatar>
-
         <v-list-item-content>
-          <v-list-item-title>John Leider</v-list-item-title>
+          <v-list-item-title>Title</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <v-divider></v-divider>
 
       <v-list dense>
+        <v-list-item>test</v-list-item>
+        <v-list-item>test</v-list-item>
         <v-list-item>test</v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -36,7 +41,6 @@
 <script>
 import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
-// import ID from "@/components/ID";
 import IDSection from "@/components/sections/IDSection";
 
 export default {
