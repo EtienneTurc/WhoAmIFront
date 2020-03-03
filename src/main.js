@@ -5,6 +5,8 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import TwitterFeed from "vuejs-twitter-feed";
 
+import "@/assets/style/_global.scss";
+
 Vue.use(TwitterFeed);
 Vue.use(require("vue-cookies"));
 
