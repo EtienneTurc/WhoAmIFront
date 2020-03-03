@@ -28,6 +28,7 @@ axios.interceptors.response.use(
 );
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
 Vue.use(VueAxios, axios);
 
