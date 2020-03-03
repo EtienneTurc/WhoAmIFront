@@ -5,9 +5,7 @@
     </v-app-bar>
 
     <v-content>
-      <router-view>
-        <IDSection></IDSection>
-      </router-view>
+      <router-view></router-view>
     </v-content>
 
     <v-navigation-drawer
@@ -15,9 +13,10 @@
       v-model="$store.state.drawerOpen"
       absolute
       temporary
-      hide-overlay="true"
+      :hide-overlay="true"
       style="margin-top: 64px;"
     >
+      <!-- clipped = true does not work ? -->
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>Title</v-list-item-title>
@@ -41,14 +40,12 @@
 <script>
 import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
-import IDSection from "@/components/sections/IDSection";
 
 export default {
   name: "App",
   components: {
     Menu,
-    Footer,
-    IDSection
+    Footer
   },
   data: () => {
     return {
@@ -59,9 +56,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .nav-view {
   width: 100%;
-  //   border: solid 1px;
   background-color: white;
 }
 
@@ -83,5 +84,7 @@ export default {
 }
 .app {
   // background-color: rgb(35, 39, 41);
+  margin: 0;
+  padding: 0;
 }
 </style>

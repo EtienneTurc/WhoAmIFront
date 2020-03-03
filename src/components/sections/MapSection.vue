@@ -1,21 +1,21 @@
 <template>
   <div class="section">
-    <ID class="id"></ID>
+    <Map></Map>
   </div>
 </template>
 
 <script>
-import ID from "@/components/ID";
+import Map from "@/components/Map";
 export default {
   components: {
-    ID
+    Map
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .id {
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

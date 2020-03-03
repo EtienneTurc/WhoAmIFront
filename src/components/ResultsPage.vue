@@ -1,15 +1,8 @@
 <template>
   <div>
     <v-container fluid align-content-center class="main">
-      <div class="title">
-        <p class="display-3">Vos résultats</p>
-        <v-divider></v-divider>
-      </div>
-
-      <IDTab></IDTab>
-      <BasicInfoTab></BasicInfoTab>
-
-      <AnalyticsTab></AnalyticsTab>
+      <IDSection></IDSection>
+      <MapSection></MapSection>
     </v-container>
   </div>
 </template>
@@ -18,7 +11,8 @@
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One&display=swap");
 
 .main {
-  padding: 4em;
+  padding: 0;
+  margin: 0;
 }
 .title {
   margin-bottom: 2em;
@@ -29,13 +23,15 @@
 import utils from "../utils/utils";
 import BasicInfoTab from "./tabs/BasicInfoTab";
 import AnalyticsTab from "./tabs/AnalyticsTab";
-import IDTab from "./tabs/IDTab";
+import IDSection from "./sections/IDSection";
+import MapSection from "./sections/MapSection";
 
 export default {
   components: {
     BasicInfoTab,
     AnalyticsTab,
-    IDTab
+    IDSection,
+    MapSection
   },
   methods: {
     getGoogleData: function() {
