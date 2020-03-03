@@ -25,7 +25,7 @@
 export default {
   methods: {
     logout() {
-      this.$store.commit("unsetTokenGoogle");
+      this.$store.commit("disconnectGoogle");
       this.$router.push("login");
     }
   }
