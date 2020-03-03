@@ -2,7 +2,7 @@
   <v-card flat tile :loading="isLoading" class="card">
     <v-card-text v-if="!isLoading">{{ result }}</v-card-text>
     <v-card-text v-else>
-      <p>We're computing your results, please hold on for a few more seconds!</p>
+      <p>Nous calculons vos résultats. Cela ne prendra encore que quelques secondes !</p>
     </v-card-text>
   </v-card>
 </template>
