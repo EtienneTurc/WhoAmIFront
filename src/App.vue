@@ -1,10 +1,10 @@
 <template>
   <v-app class="app">
-    <v-app-bar app dark class="elevation-6 primary">
+    <v-app-bar app dark class="elevation-6 primary" :value="$route.name !== 'login'">
       <Menu></Menu>
     </v-app-bar>
 
-    <v-content>
+    <v-content class="main">
       <router-view></router-view>
     </v-content>
 
@@ -15,6 +15,7 @@
       temporary
       :hide-overlay="true"
       style="margin-top: 64px;"
+      v-if="$route.name !== 'login'"
     >
       <!-- clipped = true does not work ? -->
       <v-list-item>
@@ -31,7 +32,7 @@
         <v-list-item>test</v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer app class="footer" color="secondary">
+    <v-footer app class="footer" color="secondary" :fixed="true">
       <Footer></Footer>
     </v-footer>
   </v-app>
@@ -61,6 +62,10 @@ export default {
   padding: 0;
 }
 
+// .main {
+//   width: 100%;
+//   margin: 0;
+// }
 .nav-view {
   width: 100%;
   background-color: white;

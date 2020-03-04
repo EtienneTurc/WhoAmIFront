@@ -2,6 +2,7 @@
   <div>
     <v-container fluid align-content-center class="main">
       <IDSection></IDSection>
+      <DashboardSection></DashboardSection>
       <MapSection></MapSection>
     </v-container>
   </div>
@@ -21,17 +22,15 @@
 
 <script>
 import utils from "../utils/utils";
-import BasicInfoTab from "./tabs/BasicInfoTab";
-import AnalyticsTab from "./tabs/AnalyticsTab";
 import IDSection from "./sections/IDSection";
 import MapSection from "./sections/MapSection";
+import DashboardSection from "./sections/DashboardSection";
 
 export default {
   components: {
-    BasicInfoTab,
-    AnalyticsTab,
     IDSection,
-    MapSection
+    MapSection,
+    DashboardSection
   },
   methods: {
     getGoogleData: function() {
