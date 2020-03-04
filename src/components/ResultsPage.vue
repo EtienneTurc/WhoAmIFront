@@ -1,35 +1,9 @@
 <template>
   <div>
     <v-container fluid align-content-center class="main">
-      <div class="title">
-        <p class="display-3">Your results</p>
-        <v-divider></v-divider>
-      </div>
-      <v-layout justify-center row>
-        <v-tabs
-          class="elevation-6"
-          background-color="secondary"
-          dark
-          :grow="true"
-        >
-          <v-tabs-slider color="orange"></v-tabs-slider>
-          <v-tab :href="'#tab_id'">ID</v-tab>
-          <v-tab :href="'#tab_basic_info'">Basic information</v-tab>
-          <v-tab :href="'#tab_analytics'">Analytics</v-tab>
-
-          <v-tab-item :value="'tab_id'">
-            <IDTab></IDTab>
-          </v-tab-item>
-
-          <v-tab-item :value="'tab_basic_info'">
-            <BasicInfoTab></BasicInfoTab>
-          </v-tab-item>
-
-          <v-tab-item :value="'tab_analytics'">
-            <AnalyticsTab></AnalyticsTab>
-          </v-tab-item>
-        </v-tabs>
-      </v-layout>
+      <IDSection></IDSection>
+      <DashboardSection></DashboardSection>
+      <MapSection></MapSection>
     </v-container>
   </div>
 </template>
@@ -38,7 +12,8 @@
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One&display=swap");
 
 .main {
-  padding: 4em;
+  padding: 0;
+  margin: 0;
 }
 .title {
   margin-bottom: 2em;
@@ -47,15 +22,15 @@
 
 <script>
 import utils from "../utils/utils";
-import BasicInfoTab from "./tabs/BasicInfoTab";
-import AnalyticsTab from "./tabs/AnalyticsTab";
-import IDTab from "./tabs/IDTab";
+import IDSection from "./sections/IDSection";
+import MapSection from "./sections/MapSection";
+import DashboardSection from "./sections/DashboardSection";
 
 export default {
   components: {
-    BasicInfoTab,
-    AnalyticsTab,
-    IDTab
+    IDSection,
+    MapSection,
+    DashboardSection
   },
   methods: {
     getGoogleData: function() {
@@ -67,9 +42,15 @@ export default {
         .then(res => {
           this.$store.commit("setGoogleData", res.data);
           this.$store.commit("setFetchingState", false);
+          if (
+            this.$store.state.awaitingGoogleConnection == true &&
+            this.$store.state.GoogleData != null
+          ) {
+            this.$store.commit("setGoogleConnectionState", false);
+          }
         })
         .catch(err => {
-          console.log(err);
+          return err;
         });
     }
   },

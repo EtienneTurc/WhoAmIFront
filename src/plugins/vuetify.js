@@ -5,20 +5,21 @@ import colors from "vuetify/lib/util/colors";
 Vue.use(Vuetify);
 
 export default new Vuetify({
-    icons: {
-        iconfont: "mdi"
+  icons: {
+    iconfont: "mdi"
+  },
+  theme: {
+    themes: {
+      light: {
+        primary: "#2C3E50",
+        secondary: "#0184AF",
+        attention: "#EAAA07",
+        background: "#F5F5F5"
+      },
+      dark: {}
     },
-    theme: {
-        themes: {
-            light: {
-                secondary: "#3c6382"
-            },
-            dark: {
-                primary: "#F8F8F8"
-            }
-        },
-        options: {
-            customProperties: true
-        }
+    options: {
+      customProperties: true
     }
+  }
 });

@@ -1,13 +1,13 @@
 <template>
-  <div class="main">
+  <div class="main text-center">
     <span>{{ new Date().getFullYear() }} - ENSTA Paris</span>
   </div>
 </template>
 
 <style scoped lang="scss">
 .main {
+  width: 100%;
   margin: auto;
-  /* background-color: #3c6382; */
   color: white;
   span {
     margin: auto;

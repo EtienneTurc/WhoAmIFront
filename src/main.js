@@ -4,9 +4,14 @@ import router from "./router/router";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import TwitterFeed from "vuejs-twitter-feed";
+import VueTyperPlugin from "vue-typer";
+
+import "@/assets/style/_global.scss";
 
 Vue.use(TwitterFeed);
 Vue.use(require("vue-cookies"));
+
+Vue.use(VueTyperPlugin);
 
 import { store } from "./store/index";
 
@@ -26,6 +31,7 @@ axios.interceptors.response.use(
 );
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
 Vue.use(VueAxios, axios);
 

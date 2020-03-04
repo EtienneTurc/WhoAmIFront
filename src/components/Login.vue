@@ -1,20 +1,82 @@
 <template>
-  <v-container class="main-login">
-    <div class="title">
-      <p class="display-3">Log in</p>
-      <v-divider></v-divider>
-    </div>
-    <p
-      class="text-center font-italic font-weight-medium mb-10"
-    >Have you ever wondered what the web knew about you?</p>
-    <p
-      class="text-center title font-weight-medium mb-10 primary--text"
-    >Now, this is just one click away!</p>
-    <v-layout align-center justify-center row fill-height>
-      <v-btn large @click="loginGoogle">Log in with Google</v-btn>
-    </v-layout>
-  </v-container>
+  <div class="main-login primary">
+    <v-card class="card">
+      <v-card-text>
+        <v-row class="login-row">
+          <v-col class="logo-col text-center">
+            <img src="../assets/img/logo-square.png" class="logo" />
+            <div class="typer-container">
+              <vue-typer
+                :text="['La première plateforme de\n monitoring et de gestion de vos données personnelles']"
+                :erase-on-complete="true"
+                :type-delay="50"
+                :repeat="0"
+                :eraseOnComplete="false"
+              ></vue-typer>
+            </div>
+          </v-col>
+          <v-col class="text-center">
+            <div class="left-col-content">
+              <h3 class="mb-10">Quelles plateformes souhaitez-vous analyser ?</h3>
+              <v-checkbox :label="`Google`" color="primary" input-value="true" value></v-checkbox>
+              <v-checkbox :label="`Facebook`" color="primary" disabled>piub</v-checkbox>
+              <v-checkbox :label="`LinkedIn`" color="primary" disabled></v-checkbox>
+              <v-btn large @click="loginGoogle" color="attention" class="white--text">Commencer</v-btn>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
+
+<script>
+</script>
+
+<style scoped lang="scss">
+.main-login {
+  margin-top: 0;
+  width: 100% !important;
+  padding: 0;
+  height: 100vh;
+}
+.typer-container {
+  width: 280px;
+  margin: auto;
+  height: 50px;
+}
+.vue-typer {
+  font-family: "PT mono";
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+}
+.card {
+  max-width: 1000px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 25px;
+}
+
+.login-row {
+  // height: 500px;
+  margin: 3em 0;
+}
+.logo {
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  margin-bottom: 70px;
+}
+
+.s-bg {
+  background-color: #2980b9;
+}
+
+.title {
+  margin-bottom: 2em;
+}
+</style>
 
 <script>
 import utils from "../utils/utils";
@@ -27,6 +89,7 @@ export default {
       this.$http
         .get(process.env.VUE_APP_API_URL + "/login/google")
         .then(res => {
+          this.$store.commit("setGoogleConnectionState", true);
           window.location.replace(res.data);
         })
         .catch(err => {
@@ -36,19 +99,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-.s-bg {
-  background-color: #2980b9;
-}
 
-.is-fullheight {
-  height: 100vh;
-  width: 100vw;
-}
-.title {
-  margin-bottom: 2em;
-}
-.main-login {
-  padding: 3em;
-}
-</style>
