@@ -1,5 +1,7 @@
 <template>
-	<div id="map" :style="`height:${height};width:${width}`"></div>
+	<div class="center" style="height:100%; width:100%">
+		<div id="map" :style="`height:${height};width:${width}`" class="center" style="z-index:0"></div>
+	</div>
 </template>
 
 <script>
@@ -16,6 +18,14 @@ export default {
 			}
 
 			var map = L.map("map").setView([47, 2.34293], 5) // France center
+			map.scrollWheelZoom.disable()
+			map.on("focus", () => {
+				map.scrollWheelZoom.enable()
+			})
+			map.on("blur", () => {
+				map.scrollWheelZoom.disable()
+			})
+
 			var osmLayer = L.tileLayer(
 				"http://{s}.tile.osm.org/{z}/{x}/{y}.png",
 				{
@@ -56,4 +66,11 @@ export default {
 </script>
 
 <style>
+.center {
+	vertical-align: middle;
+	margin: auto;
+	top: 50%;
+	transform: translateY(-23%);
+	/* margin-right: auto; */
+}
 </style>
