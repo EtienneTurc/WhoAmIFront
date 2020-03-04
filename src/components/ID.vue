@@ -5,24 +5,30 @@
     </div>
     <div class="center">
       <div class="picture-avatar"></div>
-      <div class="id-info">
-        <div class="name id-info-block" v-if="$store.state.googleData">
+      <div class="id-info" v-if="$store.state.accounts.google.data != null">
+        <div class="name id-info-block">
           <div class="id-info-label">Nom :</div>
-          <div class="id-info-item">{{ this.$store.state.googleData.people.lastName | prettyName }}</div>
+          <div
+            class="id-info-item"
+          >{{ this.$store.state.accounts.google.data.people.lastName | prettyName }}</div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Prénom :</div>
-          <div class="id-info-item">{{ this.$store.state.googleData.people.firstName | prettyName }}</div>
+          <div
+            class="id-info-item"
+          >{{ this.$store.state.accounts.google.data.people.firstName | prettyName }}</div>
         </div>
         <div class="date id-info-block">
           <div class="id-info-label">Né(e) le :</div>
-          <div class="id-info-item">{{ this.$store.state.googleData.people.birthDate | prettyDate }}</div>
+          <div
+            class="id-info-item"
+          >{{ this.$store.state.accounts.google.data.people.birthDate | prettyDate }}</div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) mail :</div>
           <ul>
             <li
-              v-for="mail in this.$store.state.googleData.people.mails"
+              v-for="mail in this.$store.state.accounts.google.data.people.mails"
               v-bind:key="mail"
               class="id-info-item"
             >{{mail}}</li>
@@ -30,21 +36,13 @@
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) postale(s) :</div>
-          <div class="id-info-item">{{this.$store.state.googleData.people.addresses[0]}}</div>
+          <div class="id-info-item">{{this.$store.state.accounts.google.data.people.addresses[0]}}</div>
         </div>
       </div>
     </div>
     <div class="footer"></div>
   </div>
 </template>
-
-<script>
-export default {
-  mounted() {
-    console.log(this.$store.state.googleData.people);
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap");

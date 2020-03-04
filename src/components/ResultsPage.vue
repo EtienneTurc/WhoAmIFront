@@ -55,7 +55,7 @@ export default {
     }
   },
   created() {
-    this.getGoogleData();
+    this.$store.dispatch("GET_GOOGLE_DATA");
   }
 };
 </script>

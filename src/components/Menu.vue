@@ -12,7 +12,7 @@
         <template v-slot:activator="{ on }">
           <v-btn color="#772D2D" class="white--text" v-on="on" @click="logout">Déconnexion</v-btn>
         </template>
-        <span>Me déconnecter de tous mes comptes</span>
+        <span>Nous supprimerons immédiatement toutes les données collectées sur vos comptes</span>
       </v-tooltip>
     </span>
   </v-row>
@@ -22,7 +22,7 @@
 export default {
   methods: {
     logout() {
-      this.$store.commit("disconnectGoogle");
+      this.$store.dispatch("REMOVE_DATA");
       this.$router.push("login");
     }
   }
