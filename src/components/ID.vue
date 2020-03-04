@@ -5,7 +5,7 @@
     </div>
     <div class="center">
       <div class="picture-avatar"></div>
-      <div class="id-info" v-if="$store.state.accounts.google.data != null">
+      <div class="id-info" v-if="$store.state.accounts.google.data.people ">
         <div class="name id-info-block">
           <div class="id-info-label">Nom :</div>
           <div

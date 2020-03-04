@@ -20,13 +20,33 @@ axios.interceptors.response.use(
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
+let getMailsAnalytics = async function(context) {
+  context.commit("SET_GOOGLE_ANALYTICS_FETCHING_STATE", true);
+  let res = await axios.get("google/analytics/gmail");
+  context.commit("SET_GOOGLE_ANALYTICS_FETCHING_STATE", false);
+  context.commit("SET_GOOGLE_ANALYTICS_DATA", res.data);
+};
+
+let getPeople = async function(context) {
+  context.commit("SET_GOOGLE_FETCHING_STATE", true);
+  let res = await axios.get("google/people");
+  context.commit("SET_GOOGLE_FETCHING_STATE", false);
+  context.commit("SET_GOOGLE_DATA", res.data);
+};
+
 export const store = new Vuex.Store({
   state: {
-    connected: false, // is there any active connexion ?
     drawerOpen: false,
     accounts: {
       google: {
         attemptingConnection: false,
+        fetching: false,
+        error: false,
+        data: {}
+      }
+    },
+    analytics: {
+      google: {
         fetching: false,
         error: false,
         data: null
@@ -34,32 +54,44 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    GET_GOOGLE_DATA(context) {
+    async GET_GOOGLE_DATA(context) {
       context.commit("SET_GOOGLE_FETCHING_STATE", true);
-      axios
-        .get("/google/")
-        .then(res => {
-          context.commit("SET_GOOGLE_DATA", res.data);
-        })
-        .catch(err => {
-          context.commit("SET_GOOGLE_ERROR", payload);
-        });
+      let promises = [getMailsAnalytics(context), getPeople(context)];
+      await Promise.all(promises);
       context.commit("SET_GOOGLE_FETCHING_STATE", false);
     },
     REMOVE_DATA(context) {
       context.commit("SET_GOOGLE_DATA", null);
+      context.commit("SET_GOOGLE_ANALYTICS_DATA", null);
     }
   },
   mutations: {
+    SET_DRAWER_STATE(state, isOpen) {
+      state.drawerOpen = isOpen;
+    },
     SET_GOOGLE_DATA(state, payload) {
-      state.accounts.google.data = payload;
-      state.connected = true;
+      // state.accounts.google.data.people = payload;
+      Vue.set(state.accounts.google.data, "people", payload);
     },
     SET_GOOGLE_ERROR(state, payload) {
       state.accounts.google.error = payload;
     },
     SET_GOOGLE_FETCHING_STATE(state, payload) {
       state.accounts.google.fetching = payload;
+    },
+    SET_GOOGLE_ANALYTICS_DATA(state, payload) {
+      state.analytics.google.data = payload;
+    },
+    SET_GOOGLE_ANALYTICS_ERROR(state, payload) {
+      state.analytics.google.error = payload;
+    },
+    SET_GOOGLE_ANALYTICS_FETCHING_STATE(state, payload) {
+      state.analytics.google.fetching = payload;
+    }
+  },
+  getters: {
+    connected: state => {
+      return state.accounts.google.data || state.analytics.google.data;
     }
   }
 });

@@ -1,13 +1,13 @@
 <template>
   <v-row>
-    <v-app-bar-nav-icon @click="$store.commit('setDrawerState')"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="$store.commit('SET_DRAWER_STATE', !$store.state.drawerState)"></v-app-bar-nav-icon>
     <a @click="$router.push('/')">
       <span class="app-name">
         <img src="../assets/img/logo.png" class="logo" />
       </span>
     </a>
     <v-spacer></v-spacer>
-    <span class="menu-item log-out" v-if="$store.state.connected">
+    <span class="menu-item log-out" v-if="$store.getters.connected">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn color="#772D2D" class="white--text" v-on="on" @click="logout">Déconnexion</v-btn>
