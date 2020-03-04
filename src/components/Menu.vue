@@ -1,14 +1,14 @@
 <template>
   <v-row>
-    <a @click="goToResults">
+    <a @click="$router.push('/')">
       <span class="app-name">WhoAm.io</span>
     </a>
     <v-spacer></v-spacer>
     <span class="menu-item">
-      <v-btn text class="white--text" @click="goToAbout">About us</v-btn>
+      <v-btn text class="white--text" @click="$router.push('About')">About us</v-btn>
     </span>
     <span class="menu-item">
-      <v-btn text class="white--text" @click="goToContact">Contact</v-btn>
+      <v-btn text class="white--text" @click="$router.push('Contact')">Contact</v-btn>
     </span>
     <span class="menu-item log-out">
       <v-tooltip bottom>
@@ -30,15 +30,6 @@ export default {
     logout() {
       this.$store.commit("unsetTokenGoogle");
       this.$router.push("login");
-    },
-    goToAbout() {
-      this.$router.push("About");
-    },
-    goToContact() {
-      this.$router.push("Contact");
-    },
-    goToResults() {
-      this.$router.push("/");
     }
   }
 };

@@ -1,21 +1,19 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    state: {
-        tokenGoogle: null
+  state: {
+    googleData: null,
+    fetchingState: false
+  },
+  mutations: {
+    setGoogleData(state, googleData) {
+      state.googleData = googleData;
     },
-    mutations: {
-        setTokenGoogle(state, token) {
-            state.tokenGoogle = token;
-        },
-        unsetTokenGoogle(state) {
-            state.tokenGoogle = null;
-        }
-    },
-    getters: {
-        googleConnected: state => state.googleConnected
+    setFetchingState(state, fetchingState) {
+      state.fetchingState = fetchingState;
     }
-})
+  }
+});

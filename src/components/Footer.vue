@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <span>2019 - ENSTA Paris</span>
+    <span>{{ new Date().getFullYear() }} - ENSTA Paris</span>
   </div>
 </template>
 
