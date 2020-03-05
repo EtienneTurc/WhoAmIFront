@@ -20,6 +20,11 @@ axios.interceptors.response.use(
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
+let getMailsBasic = async function(context) {
+  let res = await axios.get("google/basic/gmail");
+  context.commit("SET_GOOGLE_MAIL_DATA", res.data);
+};
+
 let getMailsAnalytics = async function(context) {
   context.commit("SET_GOOGLE_ANALYTICS_FETCHING_STATE", true);
   let res = await axios.get("google/analytics/gmail");
@@ -42,7 +47,8 @@ export const store = new Vuex.Store({
         attemptingConnection: false,
         fetching: false,
         error: false,
-        peopleData: null
+        peopleData: null,
+        mailData: null
       }
     },
     analytics: {
@@ -57,7 +63,11 @@ export const store = new Vuex.Store({
   actions: {
     async GET_GOOGLE_DATA(context) {
       context.commit("SET_GOOGLE_FETCHING_STATE", true);
-      let promises = [getMailsAnalytics(context), getPeople(context)];
+      let promises = [
+        getMailsAnalytics(context),
+        getPeople(context),
+        getMailsBasic(context)
+      ];
       await Promise.all(promises);
       context.commit("SET_GOOGLE_FETCHING_STATE", false);
     },
@@ -76,6 +86,9 @@ export const store = new Vuex.Store({
     },
     SET_GOOGLE_PEOPLE_DATA(state, payload) {
       Vue.set(state.accounts.google, "peopleData", payload);
+    },
+    SET_GOOGLE_MAIL_DATA(state, payload) {
+      Vue.set(state.accounts.google, "mailData", payload);
     },
     SET_GOOGLE_ERROR(state, payload) {
       state.accounts.google.error = payload;
