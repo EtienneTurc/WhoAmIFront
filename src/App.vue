@@ -11,28 +11,15 @@
     <v-navigation-drawer
       app
       v-model="$store.state.drawerOpen"
-      absolute
       temporary
       :hide-overlay="true"
-      style="margin-top: 64px;"
+      style="margin-top: 64px; margin-bottom: 10px;"
       v-if="$route.name !== 'login'"
     >
       <!-- clipped = true does not work ? -->
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Title</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item>test</v-list-item>
-        <v-list-item>test</v-list-item>
-        <v-list-item>test</v-list-item>
-      </v-list>
+      <NavigationDrawer></NavigationDrawer>
     </v-navigation-drawer>
-    <v-footer app class="footer" color="secondary" :fixed="true">
+    <v-footer app class="footer" color="secondary" :fixed="true" :inset="true">
       <Footer></Footer>
     </v-footer>
   </v-app>
@@ -41,11 +28,13 @@
 <script>
 import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
+import NavigationDrawer from "@/components/NavigationDrawer";
 
 export default {
   name: "App",
   components: {
     Menu,
+    NavigationDrawer,
     Footer
   },
   data: () => {
@@ -61,11 +50,11 @@ export default {
   margin: 0;
   padding: 0;
 }
-
-// .main {
-//   width: 100%;
-//   margin: 0;
+// button {
+//   width: 80%;
+//   margin: 10px auto;
 // }
+
 .nav-view {
   width: 100%;
   background-color: white;
