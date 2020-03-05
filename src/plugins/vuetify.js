@@ -14,7 +14,9 @@ export default new Vuetify({
         primary: "#2C3E50",
         secondary: "#0184AF",
         attention: "#EAAA07",
-        background: "#F5F5F5"
+        danger: "#772D2D",
+        background: "#F5F5F5",
+        green: "#61A863"
       },
       dark: {}
     },
