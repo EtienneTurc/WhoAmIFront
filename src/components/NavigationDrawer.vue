@@ -15,7 +15,7 @@
         </v-list-item>
         <v-list-item v-scroll-to="'#mapSection'">
           <v-list-item-content class="pl-5">
-            <v-list-item-title v-text="'Carte'"></v-list-item-title>
+            <v-list-item-title v-text="'Données spatiales'"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
