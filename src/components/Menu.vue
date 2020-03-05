@@ -7,10 +7,10 @@
       </span>
     </a>
     <v-spacer></v-spacer>
-    <span class="menu-item log-out" v-if="$store.getters.connected">
+    <span class="menu-item log-out" v-if="$store.getters.googleConnected">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn color="#772D2D" class="white--text" v-on="on" @click="logout">Déconnexion</v-btn>
+          <v-btn class="danger white--text" v-on="on" @click="logout">Déconnexion</v-btn>
         </template>
         <span>Nous supprimerons immédiatement toutes les données collectées sur vos comptes</span>
       </v-tooltip>
