@@ -1,135 +1,164 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "description": "Swagger specification for the backend of our Kite project.",
-    "version": "1.0.0",
-    "title": "WhoAmI"
-  },
-  "host": "localhost:8001",
-  "tags": [
-    {
-      "name": "google",
-      "description": "Basic google info"
-    }
-  ],
-  "schemes": ["https", "http"],
-  "paths": {
-    "/google/people": {
-      "get": {
-        "tags": ["google"],
-        "summary": "Get basic Google user info",
-        "description": "",
-        "operationId": "getGoogleUserInfo",
-        "produces": ["application/xml", "application/json"],
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "$ref": "#/definitions/BasicUserInfo"
-            }
-          }
-        }
-      }
-    },
-    "/google/calendar": {
-      "get": {
-        "tags": ["google"],
-        "summary": "Get basic Google calendar stats",
-        "description": "",
-        "operationId": "getGoogleCalendarStats",
-        "produces": ["application/xml", "application/json"],
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "$ref": "#/definitions/BasicUserInfo"
-            }
-          }
-        }
-      }
-    },
-    "/google/mail": {
-      "get": {
-        "tags": ["google"],
-        "summary": "Get basic Google mail stats",
-        "description": "",
-        "operationId": "getGoogleMailStats",
-        "produces": ["application/xml", "application/json"],
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "sent": {
-                  "$ref": "#/definitions/MailSummary"
-                },
-                "received": {
-                  "$ref": "#/definitions/MailSummary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/google": {
-      "get": {
-        "tags": ["google"],
-        "summary": "Get all Google info",
-        "responses": {
-          "200": {
-            "description": "success",
-            "schema": {
-              "$ref": "#/definitions/BasicUserInfo"
-            }
-          }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "BasicUserInfo": {
-      "type": "object",
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "mails": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "adresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "birthDate": {
-          "type": "object",
-          "properties": {
-            "day": { "type": "integer" },
-            "month": { "type": "integer" },
-            "year": { "type": "integer" }
-          }
-        }
-      }
-    },
-    "MailSummary": {
-      "type": "object",
-      "properties": {
-        "number": { "type": "integer" },
-        "startDate": { "type": "date" },
-        "distribution": {
-          "type": "array",
-          "items": { "type": "integer" }
-        }
-      }
-    }
-  }
+	"swagger": "2.0",
+	"info": {
+		"description": "Swagger specification for the backend of our Kite project.",
+		"version": "1.0.0",
+		"title": "WhoAmI"
+	},
+	"host": "localhost:8001",
+	"tags": [
+		{
+			"name": "google",
+			"description": "Basic google info"
+		}
+	],
+	"schemes": [
+		"https",
+		"http"
+	],
+	"paths": {
+		"/google/people": {
+			"get": {
+				"tags": [
+					"google"
+				],
+				"summary": "Get basic Google user info",
+				"description": "",
+				"operationId": "getGoogleUserInfo",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "success",
+						"schema": {
+							"$ref": "#/definitions/BasicUserInfo"
+						}
+					}
+				}
+			}
+		},
+		"/google/calendar": {
+			"get": {
+				"tags": [
+					"google"
+				],
+				"summary": "Get basic Google calendar stats",
+				"description": "",
+				"operationId": "getGoogleCalendarStats",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "success",
+						"schema": {
+							"$ref": "#/definitions/BasicUserInfo"
+						}
+					}
+				}
+			}
+		},
+		"/google/mail": {
+			"get": {
+				"tags": [
+					"google"
+				],
+				"summary": "Get basic Google mail stats",
+				"description": "",
+				"operationId": "getGoogleMailStats",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "success",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"sent": {
+									"$ref": "#/definitions/MailSummary"
+								},
+								"received": {
+									"$ref": "#/definitions/MailSummary"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/google": {
+			"get": {
+				"tags": [
+					"google"
+				],
+				"summary": "Get all Google info",
+				"responses": {
+					"200": {
+						"description": "success",
+						"schema": {
+							"$ref": "#/definitions/BasicUserInfo"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"BasicUserInfo": {
+			"type": "object",
+			"properties": {
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"mails": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"adresses": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"birthDate": {
+					"type": "object",
+					"properties": {
+						"day": {
+							"type": "integer"
+						},
+						"month": {
+							"type": "integer"
+						},
+						"year": {
+							"type": "integer"
+						}
+					}
+				}
+			}
+		},
+		"MailSummary": {
+			"type": "object",
+			"properties": {
+				"number": {
+					"type": "integer"
+				},
+				"dates": {
+					"type": "array",
+					"items": {
+						"type": "date"
+					}
+				}
+			}
+		}
+	}
 }
