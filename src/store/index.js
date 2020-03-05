@@ -31,7 +31,7 @@ let getPeople = async function(context) {
   context.commit("SET_GOOGLE_FETCHING_STATE", true);
   let res = await axios.get("google/people");
   context.commit("SET_GOOGLE_FETCHING_STATE", false);
-  context.commit("SET_GOOGLE_DATA", res.data);
+  context.commit("SET_GOOGLE_PEOPLE_DATA", res.data);
 };
 
 export const store = new Vuex.Store({
@@ -42,14 +42,15 @@ export const store = new Vuex.Store({
         attemptingConnection: false,
         fetching: false,
         error: false,
-        data: {}
+        peopleData: null
       }
     },
     analytics: {
       google: {
         fetching: false,
         error: false,
-        data: null
+        hasData: false,
+        data: {}
       }
     }
   },
@@ -61,7 +62,11 @@ export const store = new Vuex.Store({
       context.commit("SET_GOOGLE_FETCHING_STATE", false);
     },
     REMOVE_DATA(context) {
-      context.commit("SET_GOOGLE_DATA", null);
+      context.commit("SET_GOOGLE_PEOPLE_DATA", null);
+      context.commit("SET_GOOGLE_ANALYTICS_DATA", null);
+    },
+    REMOVE_GOOGLE_DATA(context) {
+      context.commit("SET_GOOGLE_PEOPLE_DATA", null);
       context.commit("SET_GOOGLE_ANALYTICS_DATA", null);
     }
   },
@@ -69,9 +74,8 @@ export const store = new Vuex.Store({
     SET_DRAWER_STATE(state, isOpen) {
       state.drawerOpen = isOpen;
     },
-    SET_GOOGLE_DATA(state, payload) {
-      // state.accounts.google.data.people = payload;
-      Vue.set(state.accounts.google.data, "people", payload);
+    SET_GOOGLE_PEOPLE_DATA(state, payload) {
+      Vue.set(state.accounts.google, "peopleData", payload);
     },
     SET_GOOGLE_ERROR(state, payload) {
       state.accounts.google.error = payload;
@@ -80,7 +84,7 @@ export const store = new Vuex.Store({
       state.accounts.google.fetching = payload;
     },
     SET_GOOGLE_ANALYTICS_DATA(state, payload) {
-      state.analytics.google.data = payload;
+      Vue.set(state.analytics.google, "data", payload);
     },
     SET_GOOGLE_ANALYTICS_ERROR(state, payload) {
       state.analytics.google.error = payload;
@@ -90,8 +94,9 @@ export const store = new Vuex.Store({
     }
   },
   getters: {
-    connected: state => {
-      return state.accounts.google.data || state.analytics.google.data;
+    googleConnected: state => {
+      let res = state.accounts.google.peopleData != null;
+      return res;
     }
   }
 });
