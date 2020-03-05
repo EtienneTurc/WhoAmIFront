@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-container fluid align-content-center class="main">
-      <IDSection></IDSection>
-      <DashboardSection></DashboardSection>
-      <MapSection></MapSection>
+      <IDSection id="idSection"></IDSection>
+      <DashboardSection id="dashboardSection"></DashboardSection>
+      <MapSection id="mapSection"></MapSection>
     </v-container>
   </div>
 </template>
@@ -31,28 +31,6 @@ export default {
     IDSection,
     MapSection,
     DashboardSection
-  },
-  methods: {
-    getGoogleData: function() {
-      this.$store.commit("setFetchingState", true);
-      this.$http
-        .get(process.env.VUE_APP_API_URL + "/google/", {
-          headers: utils.getHeaders(this)
-        })
-        .then(res => {
-          this.$store.commit("setGoogleData", res.data);
-          this.$store.commit("setFetchingState", false);
-          if (
-            this.$store.state.awaitingGoogleConnection == true &&
-            this.$store.state.GoogleData != null
-          ) {
-            this.$store.commit("setGoogleConnectionState", false);
-          }
-        })
-        .catch(err => {
-          return err;
-        });
-    }
   },
   created() {
     this.$store.dispatch("GET_GOOGLE_DATA");

@@ -1,14 +1,23 @@
-// URL and endpoint constants
-const LOGIN_URL = process.env.VUE_APP_API_URL + '/google/login'
+import Vue from "vue";
 
-export default {
-	login() {
-		window.location.replace(LOGIN_URL)
-	},
-	getHeaders(vm) {
-		// The object to be passed as a header for authenticated requests
-		return {
-			token: JSON.stringify(vm.$store.state.tokenGoogle)
-		}
-	},
+// URL and endpoint constants
+const LOGIN_URL = process.env.VUE_APP_API_URL + "/google/login";
+
+function loginGoogle(vm) {
+  localStorage.removeItem("token");
+  vm.$http
+    .get(process.env.VUE_APP_API_URL + "/login/google")
+    .then(res => {
+      vm.$store.commit("setGoogleConnectionState", true);
+      window.location.replace(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
+
+var login = {
+  Google: loginGoogle
+};
+
+export { login };

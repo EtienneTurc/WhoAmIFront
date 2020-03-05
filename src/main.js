@@ -53,6 +53,9 @@ Vue.filter("prettyDate", function(date) {
   return `${day}/${month}/${year}`;
 });
 
+var VueScrollTo = require("vue-scrollto");
+Vue.use(VueScrollTo);
+
 new Vue({
   router,
   vuetify,
