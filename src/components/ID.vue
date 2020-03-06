@@ -5,30 +5,30 @@
     </div>
     <div class="center">
       <div class="picture-avatar"></div>
-      <div class="id-info" v-if="$store.state.accounts.google.peopleData != null">
+      <div class="id-info" v-if="$store.state.basic.google.peopleData != null">
         <div class="name id-info-block">
           <div class="id-info-label">Nom :</div>
           <div
             class="id-info-item"
-          >{{ this.$store.state.accounts.google.peopleData.lastName | prettyName }}</div>
+          >{{ this.$store.state.basic.google.peopleData.lastName | prettyName }}</div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Prénom :</div>
           <div
             class="id-info-item"
-          >{{ this.$store.state.accounts.google.peopleData.firstName | prettyName }}</div>
+          >{{ this.$store.state.basic.google.peopleData.firstName | prettyName }}</div>
         </div>
         <div class="date id-info-block">
           <div class="id-info-label">Né(e) le :</div>
           <div
             class="id-info-item"
-          >{{ this.$store.state.accounts.google.peopleData.birthDate | prettyDate }}</div>
+          >{{ this.$store.state.basic.google.peopleData.birthDate | prettyDate }}</div>
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) mail :</div>
           <ul>
             <li
-              v-for="mail in this.$store.state.accounts.google.peopleData.mails"
+              v-for="mail in this.$store.state.basic.google.peopleData.mails"
               v-bind:key="mail"
               class="id-info-item"
             >{{mail}}</li>
@@ -36,7 +36,7 @@
         </div>
         <div class="name id-info-block">
           <div class="id-info-label">Adresse(s) postale(s) :</div>
-          <div class="id-info-item">{{this.$store.state.accounts.google.peopleData.addresses[0]}}</div>
+          <div class="id-info-item">{{this.$store.state.basic.google.peopleData.addresses[0]}}</div>
         </div>
       </div>
     </div>
