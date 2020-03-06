@@ -37,12 +37,16 @@ let router = new Router({
 	mode: "history"
 });
 
+let oauthRoutes = process.env.VUE_APP_LOGINS.split(",").map(l => '/oauth' + l)
+// console.log(oauthRoutes)
+
 router.beforeEach(async (to, from, next) => {
 	document.title = to.meta.title;
 	if (to.query.code &&
-		to.path == "/code") {
+		oauthRoutes.includes(to.path)) {
 		try {
-			await Axios.get(process.env.VUE_APP_API_URL + "/login/googleToken", { params: { code: to.query.code.toString() } })
+			let service = to.path.split("oauth")[1].toLowerCase() + "Token"
+			await Axios.get(process.env.VUE_APP_API_URL + "/login/" + service, { params: { code: to.query.code.toString() } })
 			next({
 				path: "/"
 			});
