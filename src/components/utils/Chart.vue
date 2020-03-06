@@ -7,11 +7,27 @@ import Plotly from "plotly.js";
 import { getDayInSeconds } from "../../utils/utils";
 
 export default {
+  // idée: nouveau plot si distribution ou type ou cumulated change
   props: ["distribution", "height", "width", "type", "cumulated"],
   watch: {
     distribution() {
+      this.plot();
+    },
+    cumulated() {
+      this.plot();
+    },
+    type() {
+      this.plot();
+    }
+  },
+  data() {
+    return {
+      plotData: null
+    };
+  },
+  methods: {
+    plot() {
       let res = this.getDistribution(this.distribution.slice());
-
       var data = [
         {
           x: res.x,
@@ -22,13 +38,7 @@ export default {
       ];
 
       Plotly.newPlot(this.$refs.plot, data, {}, { displayModeBar: false });
-    }
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    // TODO Opti this function
+    },
     getDistribution(input_distrib) {
       if (!input_distrib.length) {
         return {};

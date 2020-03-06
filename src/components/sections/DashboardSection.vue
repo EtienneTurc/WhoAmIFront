@@ -7,17 +7,24 @@
         <Chart
           :height="'400px'"
           :width="'800px'"
-          :cumulated="true"
-          :type="'line'"
+          :cumulated="chartType=='lines'"
+          :type="chartType"
           :distribution="distribution"
         ></Chart>
       </div>
 
       <div class="chart-selector">
         <v-radio-group v-model="currentPlot" row>
-          <v-radio label="Mails" value="mails"></v-radio>
+          <v-radio label="Mails envoyés" value="mailsSent"></v-radio>
+          <v-radio label="Mails reçus" value="mailsReceived"></v-radio>
           <v-radio label="Lydia" value="lydia"></v-radio>
           <v-radio label="Amazon" value="amazon"></v-radio>
+        </v-radio-group>
+      </div>
+      <div class="chart-options">
+        <v-radio-group v-model="chartType" row>
+          <v-radio label="Simple" value="point"></v-radio>
+          <v-radio label="Cumulé" value="lines"></v-radio>
         </v-radio-group>
       </div>
     </div>
@@ -30,10 +37,15 @@ import Chart from "../utils/Chart";
 export default {
   data: () => {
     return {
-      currentPlot: "mails",
+      currentPlot: "mailsSent",
+      chartType: "lines",
       plots: {
-        mails: {
-          title: "Vos mails sur les X derniers jours",
+        mailsSent: {
+          title: "Votre fréquence d'envoi de mail",
+          distribution: []
+        },
+        mailsReceived: {
+          title: "Votre fréquence de réception de mail",
           distribution: []
         },
         lydia: {
@@ -52,13 +64,8 @@ export default {
       return this.plots[this.currentPlot].distribution;
     },
     ready: function() {
-      console.log(this.plots[this.currentPlot].distribution.length);
-
       return this.plots[this.currentPlot].distribution.length;
     }
-  },
-  watch: {
-    currentPlot: function(val) {}
   },
   components: {
     Chart
@@ -66,13 +73,20 @@ export default {
   mounted() {},
   created() {
     this.$store.watch(
-      (state, getters) => state.accounts.google.mailData,
+      (state, getters) => state.basic.google.mailData,
       (newValue, oldValue) => {
         if (newValue != null) {
           this.$set(
-            this.plots.mails,
+            this.plots.mailsReceived,
             "distribution",
-            this.$store.state.accounts.google.mailData.received.distribution
+            this.$store.state.basic.google.mailData.received.distribution
+          );
+        }
+        if (newValue != null) {
+          this.$set(
+            this.plots.mailsSent,
+            "distribution",
+            this.$store.state.basic.google.mailData.sent.distribution
           );
         }
       }
@@ -85,6 +99,18 @@ export default {
             this.plots.lydia,
             "distribution",
             this.$store.state.analytics.google.data.lydia
+          );
+        }
+      }
+    );
+    this.$store.watch(
+      (state, getters) => state.analytics.google.data.amazon,
+      (newValue, oldValue) => {
+        if (newValue != null) {
+          this.$set(
+            this.plots.amazon,
+            "distribution",
+            this.$store.state.analytics.google.data.amazon
           );
         }
       }
