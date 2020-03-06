@@ -1,71 +1,115 @@
 <template>
-	<div class="section">
-		<h1>Dashboard</h1>
-		<!-- v-if="$store.state.accounts.google.mailData" -->
-		<Chart
-			:height="'400px'"
-			:width="'400px'"
-			:cumulated="true"
-			:type="'line'"
-			:distribution="distribution"
-		></Chart>
-		<!-- <div class="chart-placeholder"></div> -->
-		<div class="chart-selector">
-			<!-- <v-select
-        :items="['Lydia', 'Amazon', 'Mails']"
-        :change="setChart"
-        v-model="currentPlot"
-        label="Que souhaitez-vous tracer ?"
-			></v-select>-->
-			<v-radio-group v-model="currentPlot" row>
-				<v-radio label="Mails" value="mails"></v-radio>
-				<v-radio label="Lydia" value="lydia"></v-radio>
-				<v-radio label="Amazon" value="amazon"></v-radio>
-			</v-radio-group>
-		</div>
-	</div>
+  <div class="section">
+    <h1>Dashboard</h1>
+    <div class="dashboard-center">
+      <h3 class="current-plot">{{plots[currentPlot].title}}</h3>
+      <div v-show="ready">
+        <Chart
+          :height="'400px'"
+          :width="'800px'"
+          :cumulated="true"
+          :type="'line'"
+          :distribution="distribution"
+        ></Chart>
+      </div>
+
+      <div class="chart-selector">
+        <v-radio-group v-model="currentPlot" row>
+          <v-radio label="Mails" value="mails"></v-radio>
+          <v-radio label="Lydia" value="lydia"></v-radio>
+          <v-radio label="Amazon" value="amazon"></v-radio>
+        </v-radio-group>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Chart from "../utils/Chart"
+import Chart from "../utils/Chart";
 
 export default {
-	data: () => {
-		return {
-			currentPlot: "mails",
-			distribution: []
-		}
-	},
-	components: {
-		Chart
-	},
-	mounted() {
-		this.$set(this, "distribution", [
-			{ date: "1583414126000", amount: 1 },
-			{ date: "1583414126002", amount: 1 },
-			{ date: "1583415156002", amount: 1 },
-			{ date: "1583415156007", amount: 1 },
-			{ date: "1582268380000", amount: 1 },
-			{ date: "1582268380000", amount: 1 }
-		])
-	},
-	methods: {
-		setChart(e) {
-			console.log(e)
+  data: () => {
+    return {
+      currentPlot: "mails",
+      plots: {
+        mails: {
+          title: "Vos mails sur les X derniers jours",
+          distribution: []
+        },
+        lydia: {
+          title: "La balance de vos transactions Lydia",
+          distribution: []
+        },
+        amazon: {
+          title: "Vos derniers achats sur Amazon",
+          distribution: []
+        }
+      }
+    };
+  },
+  computed: {
+    distribution: function() {
+      return this.plots[this.currentPlot].distribution;
+    },
+    ready: function() {
+      console.log(this.plots[this.currentPlot].distribution.length);
 
-			// this.currentPlot
-		}
-	}
-}
+      return this.plots[this.currentPlot].distribution.length;
+    }
+  },
+  watch: {
+    currentPlot: function(val) {}
+  },
+  components: {
+    Chart
+  },
+  mounted() {},
+  created() {
+    this.$store.watch(
+      (state, getters) => state.accounts.google.mailData,
+      (newValue, oldValue) => {
+        if (newValue != null) {
+          this.$set(
+            this.plots.mails,
+            "distribution",
+            this.$store.state.accounts.google.mailData.received.distribution
+          );
+        }
+      }
+    );
+    this.$store.watch(
+      (state, getters) => state.analytics.google.data.lydia,
+      (newValue, oldValue) => {
+        if (newValue != null) {
+          this.$set(
+            this.plots.lydia,
+            "distribution",
+            this.$store.state.analytics.google.data.lydia
+          );
+        }
+      }
+    );
+  },
+  methods: {
+    setChart(e) {
+      console.log(e);
+
+      // this.currentPlot
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .chart-placeholder {
-	background-color: teal;
-	width: 60%;
-	height: 50%;
+  background-color: teal;
+  width: 60%;
+  height: 50%;
 }
 .chart-selector {
-	max-width: 300px;
+  max-width: 300px;
+}
+.dashboard-center {
+  margin: auto;
 }
 </style>
