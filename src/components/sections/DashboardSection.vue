@@ -115,13 +115,6 @@ export default {
         }
       }
     );
-  },
-  methods: {
-    setChart(e) {
-      console.log(e);
-
-      // this.currentPlot
-    }
   }
 };
 </script>
