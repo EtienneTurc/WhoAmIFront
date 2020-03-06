@@ -19,8 +19,22 @@
 						<div class="left-col-content">
 							<h3 class="mb-10">Quelles plateformes souhaitez-vous analyser ?</h3>
 							<v-checkbox :label="`Google`" color="primary" input-value="true" value></v-checkbox>
-							<v-checkbox :label="`Facebook`" color="primary" disabled>piub</v-checkbox>
-							<v-checkbox :label="`LinkedIn`" color="primary" disabled></v-checkbox>
+							<v-tooltip bottom>
+								<template v-slot:activator="{ on }">
+									<span v-on="on">
+										<v-checkbox :label="`Facebook`" color="primary" disabled></v-checkbox>
+									</span>
+								</template>
+								<span>Cette fonctionnalité sera bientôt disponible !</span>
+							</v-tooltip>
+							<v-tooltip bottom>
+								<template v-slot:activator="{ on }">
+									<span v-on="on">
+										<v-checkbox :label="`LinkedIn`" color="primary" disabled></v-checkbox>
+									</span>
+								</template>
+								<span>Cette fonctionnalité sera bientôt disponible !</span>
+							</v-tooltip>
 							<v-btn large @click="loginGoogle" color="attention" class="white--text">Commencer</v-btn>
 							<v-btn large @click="loginFacebook" color="danger" class="white--text">Commencer</v-btn>
 						</div>

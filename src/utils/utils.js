@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 // URL and endpoint constants
 const LOGIN_URL = process.env.VUE_APP_API_URL + "/google/login";
 

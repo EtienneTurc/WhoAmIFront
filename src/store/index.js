@@ -3,46 +3,12 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import axios from "axios";
-axios.interceptors.response.use(
-  response => {
-    return response;
-  },
-  function(error) {
-    // Do something with response error
-    if (error.response.status === 401) {
-      router.replace("/login");
-    }
-    return Promise.reject(error.response);
-  }
-);
-
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = process.env.VUE_APP_API_URL;
-
-let getMailsBasic = async function(context) {
-  let res = await axios.get("google/basic/gmail");
-  context.commit("SET_GOOGLE_MAIL_DATA", res.data);
-};
-
-let getMailsAnalytics = async function(context) {
-  context.commit("SET_GOOGLE_ANALYTICS_FETCHING_STATE", true);
-  let res = await axios.get("google/analytics/gmail");
-  context.commit("SET_GOOGLE_ANALYTICS_FETCHING_STATE", false);
-  context.commit("SET_GOOGLE_ANALYTICS_DATA", res.data);
-};
-
-let getPeople = async function(context) {
-  context.commit("SET_GOOGLE_FETCHING_STATE", true);
-  let res = await axios.get("google/people");
-  context.commit("SET_GOOGLE_FETCHING_STATE", false);
-  context.commit("SET_GOOGLE_PEOPLE_DATA", res.data);
-};
+import googleHelpers from "./api";
 
 export const store = new Vuex.Store({
   state: {
     drawerOpen: false,
-    accounts: {
+    basic: {
       google: {
         attemptingConnection: false,
         fetching: false,
@@ -55,7 +21,6 @@ export const store = new Vuex.Store({
       google: {
         fetching: false,
         error: false,
-        hasData: false,
         data: {}
       }
     }
@@ -64,9 +29,9 @@ export const store = new Vuex.Store({
     async GET_GOOGLE_DATA(context) {
       context.commit("SET_GOOGLE_FETCHING_STATE", true);
       let promises = [
-        getMailsAnalytics(context),
-        getPeople(context),
-        getMailsBasic(context)
+        googleHelpers.analytics.getMailsAnalytics(context, this._vm),
+        googleHelpers.basic.getPeople(context, this._vm),
+        googleHelpers.basic.getMailsBasic(context, this._vm)
       ];
       await Promise.all(promises);
       context.commit("SET_GOOGLE_FETCHING_STATE", false);
@@ -85,16 +50,16 @@ export const store = new Vuex.Store({
       state.drawerOpen = isOpen;
     },
     SET_GOOGLE_PEOPLE_DATA(state, payload) {
-      Vue.set(state.accounts.google, "peopleData", payload);
+      Vue.set(state.basic.google, "peopleData", payload);
     },
     SET_GOOGLE_MAIL_DATA(state, payload) {
-      Vue.set(state.accounts.google, "mailData", payload);
+      Vue.set(state.basic.google, "mailData", payload);
     },
     SET_GOOGLE_ERROR(state, payload) {
-      state.accounts.google.error = payload;
+      state.basic.google.error = payload;
     },
     SET_GOOGLE_FETCHING_STATE(state, payload) {
-      state.accounts.google.fetching = payload;
+      state.basic.google.fetching = payload;
     },
     SET_GOOGLE_ANALYTICS_DATA(state, payload) {
       Vue.set(state.analytics.google, "data", payload);
@@ -108,7 +73,7 @@ export const store = new Vuex.Store({
   },
   getters: {
     googleConnected: state => {
-      let res = state.accounts.google.peopleData != null;
+      let res = state.basic.google.peopleData != null;
       return res;
     }
   }
