@@ -3,12 +3,10 @@ import vuetify from "./plugins/vuetify";
 import router from "./router/router";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import TwitterFeed from "vuejs-twitter-feed";
 import VueTyperPlugin from "vue-typer";
 
 import "@/assets/style/_global.scss";
 
-Vue.use(TwitterFeed);
 Vue.use(require("vue-cookies"));
 
 Vue.use(VueTyperPlugin);
@@ -52,6 +50,10 @@ Vue.filter("prettyDate", function(date) {
   }
   return `${day}/${month}/${year}`;
 });
+
+import VueAwesomeSwiper from "vue-awesome-swiper";
+import "swiper/dist/css/swiper.css";
+Vue.use(VueAwesomeSwiper);
 
 var VueScrollTo = require("vue-scrollto");
 Vue.use(VueScrollTo);

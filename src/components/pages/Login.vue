@@ -15,27 +15,59 @@
               ></vue-typer>
             </div>
           </v-col>
-          <v-col class="text-center">
+          <v-col class="left-col">
             <div class="left-col-content">
-              <h3 class="mb-10">Quelles plateformes souhaitez-vous analyser ?</h3>
-              <v-checkbox :label="`Google`" color="primary" input-value="true" value></v-checkbox>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span v-on="on">
-                    <v-checkbox :label="`Facebook`" color="primary" disabled></v-checkbox>
-                  </span>
-                </template>
-                <span>Cette fonctionnalité sera bientôt disponible !</span>
-              </v-tooltip>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span v-on="on">
-                    <v-checkbox :label="`LinkedIn`" color="primary" disabled></v-checkbox>
-                  </span>
-                </template>
-                <span>Cette fonctionnalité sera bientôt disponible !</span>
-              </v-tooltip>
-              <v-btn large @click="loginGoogle" color="attention" class="white--text">Commencer</v-btn>
+              <swiper ref="welcomeSwiper" :options="{ initialSlide: 0, slidesPerView: 1}">
+                <swiper-slide>
+                  <p>Bienvenue sur WhoAmI.com,</p>
+                  <p>Connectez-vous à notre service avec vos comptes Facebook, LinkedIn ou Google. Avec WhoAmI nous vous proposons de reprendre le contrôle de vos données en :</p>
+
+                  <ol>
+                    <li>analysant les données que vous laissez en ligne</li>
+                    <li>visualisant les informations issues de ces données</li>
+                    <li>gérant et supprimant les informations sensibles de vos comptes internet</li>
+                  </ol>
+                  <br />
+                  <p>WhoAmI ne conserve aucune de vos données après votre déconnexion.</p>
+                  <div class="text-center">
+                    <v-btn
+                      large
+                      @click="slideToNext"
+                      color="attention"
+                      class="white--text"
+                    >Commencer</v-btn>
+                  </div>
+                </swiper-slide>
+                <swiper-slide>
+                  <h3 class="mb-10">Quelles plateformes souhaitez-vous analyser ?</h3>
+                  <v-checkbox :label="`Google`" color="primary" input-value="true" value></v-checkbox>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <span v-on="on">
+                        <v-checkbox :label="`Facebook`" color="primary" disabled></v-checkbox>
+                      </span>
+                    </template>
+                    <span>Cette fonctionnalité sera bientôt disponible !</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <span v-on="on">
+                        <v-checkbox :label="`LinkedIn`" color="primary" disabled></v-checkbox>
+                      </span>
+                    </template>
+                    <span>Cette fonctionnalité sera bientôt disponible !</span>
+                  </v-tooltip>
+                  <div class="text-center">
+                    <v-btn
+                      large
+                      @click="loginGoogle"
+                      color="attention"
+                      class="white--text"
+                    >Se connecter</v-btn>
+                  </div>
+                </swiper-slide>
+              </swiper>
+
               <!-- <v-btn large @click="loginFacebook" color="danger" class="white--text">Commencer fb</v-btn> -->
             </div>
           </v-col>
@@ -45,10 +77,63 @@
   </div>
 </template>
 
+
+
 <script>
+import utils from "@/utils/utils";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+
+export default {
+  data: () => {
+    return {
+      swiper: null
+    };
+  },
+  mounted() {
+    this.swiper = this.$refs.welcomeSwiper.swiper;
+  },
+  methods: {
+    loginGoogle: function() {
+      localStorage.removeItem("tokenGoogle");
+      this.$http
+        .get(process.env.VUE_APP_API_URL + "/login/google")
+        .then(res => {
+          window.location.replace(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    loginFacebook: function() {
+      let url = "https://www.facebook.com/v6.0/dialog/oauth?";
+      let queries = {
+        client_id: "287942492167943",
+        redirect_uri:
+          "https://local-redirect.data-ensta.fr/oauthFacebook?port=8080",
+        state: "",
+        scope: "user_hometown,user_location,user_photos"
+      };
+      let i = 0;
+      for (let q in queries) {
+        url += i ? "&" : "";
+        url += q + "=" + queries[q];
+        i++;
+      }
+      window.location.replace(url);
+    },
+    slideToNext: function() {
+      this.swiper.slideTo(1, 1000, false);
+    }
+  }
+};
 </script>
 
+
+
 <style scoped lang="scss">
+.left-col {
+  width: 50%;
+}
 .main-login {
   margin-top: 0;
   width: 100% !important;
@@ -92,42 +177,3 @@
   margin-bottom: 2em;
 }
 </style>
-
-<script>
-import utils from "@/utils/utils";
-
-export default {
-  data: () => ({}),
-  methods: {
-    loginGoogle: function() {
-      localStorage.removeItem("tokenGoogle");
-      this.$http
-        .get(process.env.VUE_APP_API_URL + "/login/google")
-        .then(res => {
-          window.location.replace(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    loginFacebook: function() {
-      console.log("hit");
-      let url = "https://www.facebook.com/v6.0/dialog/oauth?";
-      let queries = {
-        client_id: "287942492167943",
-        redirect_uri:
-          "https://local-redirect.data-ensta.fr/oauthFacebook?port=8080",
-        state: "",
-        scope: "user_hometown,user_location,user_photos"
-      };
-      let i = 0;
-      for (let q in queries) {
-        url += i ? "&" : "";
-        url += q + "=" + queries[q];
-        i++;
-      }
-      window.location.replace(url);
-    }
-  }
-};
-</script>
