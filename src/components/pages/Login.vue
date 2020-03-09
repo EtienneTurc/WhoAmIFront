@@ -4,7 +4,7 @@
       <v-card-text>
         <v-row class="login-row">
           <v-col class="logo-col text-center">
-            <img src="../assets/img/logo-square.png" class="logo" />
+            <img src="@/assets/img/logo-square.png" class="logo" />
             <div class="typer-container">
               <vue-typer
                 :text="['La première plateforme de\n monitoring et de gestion de vos données personnelles']"
@@ -94,7 +94,7 @@
 </style>
 
 <script>
-import utils from "../utils/utils";
+import utils from "@/utils/utils";
 
 export default {
   data: () => ({}),

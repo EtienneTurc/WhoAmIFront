@@ -21,10 +21,10 @@
 </style>
 
 <script>
-import utils from "../utils/utils";
-import IDSection from "./sections/IDSection";
-import MapSection from "./sections/MapSection";
-import DashboardSection from "./sections/DashboardSection";
+import utils from "@/utils/utils";
+import IDSection from "@/components/sections/IDSection";
+import MapSection from "@/components/sections/MapSection";
+import DashboardSection from "@/components/sections/DashboardSection";
 
 export default {
   components: {

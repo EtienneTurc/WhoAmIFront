@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Login from "@/components/Login";
-import ResultsPage from "@/components/ResultsPage";
+import Login from "@/components/pages/Login";
+import ResultsPage from "@/components/pages/ResultsPage";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Axios from "axios";
