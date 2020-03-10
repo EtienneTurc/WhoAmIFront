@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-list dense>
-      <v-subheader>NAVIGATION</v-subheader>
+      <div class="header">
+        <v-subheader>NAVIGATION</v-subheader>
+        <button @click="$store.commit('SET_DRAWER_STATE', false)">
+          <v-icon color="secondary">mdi-close</v-icon>
+        </button>
+      </div>
       <v-list-item-group>
         <v-list-item v-scroll-to="'#idSection'">
           <v-list-item-content class="pl-5">
@@ -41,3 +46,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 16px;
+}
+</style>
