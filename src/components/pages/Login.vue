@@ -100,33 +100,24 @@ export default {
     this.swiper = this.$refs.welcomeSwiper.swiper;
   },
   methods: {
-    loginGoogle: function() {
-      localStorage.removeItem("tokenGoogle");
-      this.$http
-        .get(process.env.VUE_APP_API_URL + "/login/google")
-        .then(res => {
-          window.location.replace(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    loginFacebook: function() {
-      let url = "https://www.facebook.com/v6.0/dialog/oauth?";
-      let queries = {
-        client_id: "287942492167943",
-        redirect_uri:
-          "https://local-redirect.data-ensta.fr/oauthFacebook?port=8080",
-        state: "",
-        scope: "user_hometown,user_location,user_photos"
-      };
+    getConsenturl(conf) {
+      let url = conf.url;
+      let queries = conf.params;
+      queries.scope = queries.scope.join(conf.scope_separator);
       let i = 0;
       for (let q in queries) {
         url += i ? "&" : "";
-        url += q + "=" + queries[q];
+        url += encodeURIComponent(q) + "=" + encodeURIComponent(queries[q]);
         i++;
       }
-      window.location.replace(url);
+      return url;
+    },
+    loginGoogle: function() {
+      localStorage.removeItem("tokenGoogle");
+      window.location.replace(this.getConsenturl(config.google));
+    },
+    loginFacebook: function() {
+      window.location.replace(this.getConsenturl(config.facebook));
     }
   }
 };
