@@ -87,6 +87,7 @@
 
 <script>
 import utils from "@/utils/utils";
+import config from "../config/config.json";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 
 export default {

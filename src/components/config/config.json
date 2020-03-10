@@ -1,0 +1,36 @@
+{
+	"google": {
+		"url": "https://accounts.google.com/o/oauth2/v2/auth?",
+		"params": {
+			"client_id": "967740284660-2is97nrb2amf2lafdtjnra4hu04ou51f.apps.googleusercontent.com",
+			"scope": [
+				"https://www.googleapis.com/auth/calendar.readonly",
+				"https://www.googleapis.com/auth/gmail.readonly",
+				"https://www.googleapis.com/auth/drive.readonly",
+				"https://www.googleapis.com/auth/contacts.readonly",
+				"https://www.googleapis.com/auth/profile.emails.read",
+				"https://www.googleapis.com/auth/user.addresses.read",
+				"https://www.googleapis.com/auth/user.birthday.read",
+				"https://www.googleapis.com/auth/user.emails.read",
+				"https://www.googleapis.com/auth/userinfo.email",
+				"https://www.googleapis.com/auth/userinfo.profile"
+			],
+			"response_type": "code",
+			"redirect_uri": "https://local-redirect.data-ensta.fr/oauthGoogle?port=8080"
+		},
+		"scope_separator": " "
+	},
+	"facebook": {
+		"url": "https://www.facebook.com/v6.0/dialog/oauth?",
+		"params": {
+			"client_id": "287942492167943",
+			"redirect_uri": "https://local-redirect.data-ensta.fr/oauthFacebook?port=8080",
+			"state": "",
+			"scope": [
+				"user_hometown",
+				"user_location,user_photos"
+			]
+		},
+		"scope_separator": ","
+	}
+}
