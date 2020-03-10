@@ -32,7 +32,7 @@
                   <div class="text-center">
                     <v-btn
                       large
-                      @click="slideToNext"
+                      @click="swiper.slideTo(1, 1000, false)"
                       color="attention"
                       class="white--text"
                     >Commencer</v-btn>
@@ -59,16 +59,22 @@
                   </v-tooltip>
                   <div class="text-center">
                     <v-btn
+                      text
+                      large
+                      @click="swiper.slideTo(0, 1000, false)"
+                      class="white--text mr-9"
+                    >
+                      <v-icon color="primary">mdi-arrow-left</v-icon>
+                    </v-btn>
+                    <v-btn
                       large
                       @click="loginGoogle"
                       color="attention"
-                      class="white--text"
+                      class="white--text ml-9"
                     >Se connecter</v-btn>
                   </div>
                 </swiper-slide>
               </swiper>
-
-              <!-- <v-btn large @click="loginFacebook" color="danger" class="white--text">Commencer fb</v-btn> -->
             </div>
           </v-col>
         </v-row>
@@ -120,9 +126,6 @@ export default {
         i++;
       }
       window.location.replace(url);
-    },
-    slideToNext: function() {
-      this.swiper.slideTo(1, 1000, false);
     }
   }
 };
