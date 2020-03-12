@@ -24,10 +24,10 @@ export default {
 		initialize() {
 			this.map = L.map("map").setView([47, 2.34293], 5) // France center
 			this.map.scrollWheelZoom.disable()
-			this.map.on("focus", () => {
+			this.map.on("click", () => {
 				this.map.scrollWheelZoom.enable()
 			})
-			this.map.on("blur", () => {
+			this.map.on("mouseout", () => {
 				this.map.scrollWheelZoom.disable()
 			})
 
@@ -66,25 +66,19 @@ export default {
 			let places_coords = await Promise.all(promises)
 
 			if (places_coords) {
-				console.log(places_coords)
 				this.markers = L.layerGroup()
 
 				for (let i in places_coords) {
 					let p = places_coords[i]
 					if (!p.data.length) continue
 					let pos = [p.data[0].lat, p.data[0].lon]
-					// L.marker(pos, { title: this.places[i] }).addTo(
-					// 	this.markers
-					// )
-
-					var icon = L.divIcon({
+					let icon = L.divIcon({
 						className: "map-marker-class",
 						html: getMapMarkerHtml(
 							this.places[i].color,
 							this.places[i].icon
 						)
 					})
-
 					L.marker(pos, {
 						title: this.places[i],
 						icon: icon
