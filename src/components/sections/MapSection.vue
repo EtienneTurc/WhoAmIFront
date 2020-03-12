@@ -30,7 +30,9 @@ export default {
 					p.push(ride.destination)
 				}
 			}
-			return p
+			return p.filter(
+				(value, index, self) => self.indexOf(value) === index
+			)
 		}
 	}
 }
