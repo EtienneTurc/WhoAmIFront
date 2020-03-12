@@ -84,8 +84,6 @@ router.beforeEach(async (to, from, next) => {
 			console.log(error);
 		}
 	} else {
-		console.log(to);
-
 		next();
 	}
 });
