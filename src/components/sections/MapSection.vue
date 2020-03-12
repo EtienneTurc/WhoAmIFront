@@ -13,6 +13,9 @@ import Map from "@/components/utils/Map"
 export default {
 	components: {
 		Map
+	},
+	computed: {
+		places: {}
 	}
 }
 </script>
