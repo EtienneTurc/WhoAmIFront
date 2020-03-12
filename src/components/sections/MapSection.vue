@@ -14,25 +14,42 @@ export default {
 		places() {
 			let p = []
 			if (this.$store.state.basic.google.peopleData) {
-				p = this.$store.state.basic.google.peopleData.addresses
+				for (let adr of this.$store.state.basic.google.peopleData
+					.addresses) {
+					p.push({ location: adr, icon: "home", color: "blue-dark" })
+				}
 			}
 			if (this.$store.state.analytics.google.data.uber_rides) {
 				for (let ride of this.$store.state.analytics.google.data
 					.uber_rides) {
-					p.push(ride.departure)
-					p.push(ride.destination)
+					p.push({
+						location: ride.departure,
+						icon: "car",
+						color: "red"
+					})
+					p.push({
+						location: ride.destination,
+						icon: "car",
+						color: "red"
+					})
 				}
 			}
 			if (this.$store.state.analytics.google.data.uber_bicycle) {
 				for (let ride of this.$store.state.analytics.google.data
 					.uber_bicycle) {
-					p.push(ride.departure)
-					p.push(ride.destination)
+					p.push({
+						location: ride.departure,
+						icon: "bike",
+						color: "red"
+					})
+					p.push({
+						location: ride.destination,
+						icon: "bike",
+						color: "red"
+					})
 				}
 			}
-			return p.filter(
-				(value, index, self) => self.indexOf(value) === index
-			)
+			return p
 		}
 	}
 }

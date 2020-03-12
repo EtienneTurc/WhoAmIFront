@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { getMapMarkerHtml } from "@/utils/mapMarker.js"
+
 export default {
 	props: ["width", "height", "places"],
 	data() {
@@ -58,7 +60,7 @@ export default {
 
 			let promises = []
 			for (let p of this.places) {
-				promises.push(this.geolocalize(p))
+				promises.push(this.geolocalize(p.location))
 			}
 
 			let places_coords = await Promise.all(promises)
@@ -69,11 +71,24 @@ export default {
 
 				for (let i in places_coords) {
 					let p = places_coords[i]
-					if (p.data.length) {
-						L.marker([p.data[0].lat, p.data[0].lon], {
-							title: this.places[i]
-						}).addTo(this.markers)
-					}
+					if (!p.data.length) continue
+					let pos = [p.data[0].lat, p.data[0].lon]
+					// L.marker(pos, { title: this.places[i] }).addTo(
+					// 	this.markers
+					// )
+
+					var icon = L.divIcon({
+						className: "map-marker-class",
+						html: getMapMarkerHtml(
+							this.places[i].color,
+							this.places[i].icon
+						)
+					})
+
+					L.marker(pos, {
+						title: this.places[i],
+						icon: icon
+					}).addTo(this.markers)
 				}
 				this.map.addLayer(this.markers)
 			}
