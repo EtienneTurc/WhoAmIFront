@@ -13,7 +13,7 @@ export default {
   props: ["name", "storeStateName"],
   computed: {
     connected() {
-      console.log(this.$store.state[this.storeStateName]);
+      // console.log(this.$store.state[this.storeStateName]);
 
       return this.$store.state[this.storeStateName];
     }
