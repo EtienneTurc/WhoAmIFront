@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { login } from "../utils/utils";
+import { login, logOut } from "../utils/login";
 
 export default {
   props: {
@@ -58,11 +58,12 @@ export default {
   },
   methods: {
     login: function() {
-      login[`${this.service}`](this);
+      login([`${this.service}`], this);
     },
-    disconnect: function() {
-      localStorage.removeItem("tokenGoogle");
-      this.$store.dispatch(`REMOVE_${this.service.toUpperCase()}_DATA`);
+    disconnect: async function() {
+      await logOut([this.service.toLowerCase()], this);
+      await this.$store.dispatch("GET_CONNEXIONS_STATUS");
+      await this.$store.dispatch("SYNC_DATA");
     }
   }
 };
