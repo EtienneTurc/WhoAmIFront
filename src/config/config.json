@@ -28,7 +28,9 @@
 			"state": "",
 			"scope": [
 				"user_hometown",
-				"user_location,user_photos"
+				"user_location",
+				"user_photos",
+				"user_posts"
 			]
 		},
 		"scope_separator": ","
