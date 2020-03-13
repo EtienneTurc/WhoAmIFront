@@ -100,7 +100,7 @@
 <script>
 import utils from "@/utils/utils";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import { login } from "@/utils/login";
+import { login, logOut } from "@/utils/login";
 
 export default {
   data: () => {
@@ -112,6 +112,9 @@ export default {
   },
   mounted() {
     this.swiper = this.$refs.welcomeSwiper.swiper;
+  },
+  created() {
+    logOut(Object.keys(this.$store.state.connexions), this);
   },
   computed: {
     toLog: function() {
