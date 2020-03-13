@@ -63,9 +63,6 @@ export default {
 					el.direction[0] = Math.random() * 2 - 1
 					el.direction[1] = Math.random() * 2 - 1
 				}
-				// this.mod(el.direction[0] + Math.random() * 2, 1) - 1
-
-				// this.mod(el.direction[1] + Math.random() * 2, 1) - 1
 
 				el.x += el.direction[0] / 2
 				el.x = this.mod(el.x, this.width)

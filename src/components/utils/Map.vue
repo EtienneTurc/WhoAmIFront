@@ -48,7 +48,7 @@ export default {
 				"https://nominatim.openstreetmap.org/search",
 				{
 					params: {
-						q: query,
+						q: query.split("\n").join(","),
 						format: "json"
 					},
 					withCredentials: false
