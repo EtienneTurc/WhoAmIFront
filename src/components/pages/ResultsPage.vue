@@ -14,6 +14,10 @@
 .main {
   padding: 0;
   margin: 0;
+  background: url("../../assets/img/bg-test.png");
+  background-size: 500px;
+  background-repeat: repeat;
+  background-attachment: fixed;
 }
 .title {
   margin-bottom: 2em;
@@ -25,6 +29,7 @@ import utils from "@/utils/utils";
 import IDSection from "@/components/sections/IDSection";
 import MapSection from "@/components/sections/MapSection";
 import DashboardSection from "@/components/sections/DashboardSection";
+import { login, logOut } from "../../utils/login";
 
 export default {
   components: {
@@ -32,14 +37,9 @@ export default {
     MapSection,
     DashboardSection
   },
-  created() {
-    this.$store.dispatch("GET_GOOGLE_DATA");
-    // this.$http
-    // 	.get("facebook/basic/info")
-    // 	.then(res => {
-    // 		console.log(res)
-    // 	})
-    // 	.catch(err => console.log(err))
+  created: async function() {
+    await this.$store.dispatch("GET_CONNEXIONS_STATUS");
+    await this.$store.dispatch("SYNC_DATA");
   }
 };
 </script>
