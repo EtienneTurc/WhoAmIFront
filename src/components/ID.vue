@@ -4,7 +4,14 @@
       <div class="white--text text-uppercase header-text">Carte d'identité WEB</div>
     </div>
     <div class="center">
-      <div class="picture-avatar"></div>
+      <div class="picture-avatar">
+        <div v-if="$store.state.basic.facebook.peopleData != null">
+          <img
+            :src="$store.state.basic.facebook.peopleData.picture.data.url"
+            class="profile-picture"
+          />
+        </div>
+      </div>
       <div class="id-info" v-if="$store.state.basic.google.peopleData != null">
         <div class="name id-info-block">
           <div class="id-info-label">Nom :</div>
@@ -111,6 +118,11 @@
     height: 202px;
     width: 150px;
     margin-top: auto;
+  }
+  .profile-picture {
+    height: 202px;
+    width: 150px;
+    object-fit: cover;
   }
   .id-info {
     background-color: transparent;
