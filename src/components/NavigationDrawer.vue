@@ -29,8 +29,8 @@
     <v-list dense>
       <v-subheader>CONNEXIONS</v-subheader>
       <v-list-item-group>
-        <ConnexionIndicator service="Google" :connected="$store.getters.googleConnected"></ConnexionIndicator>
-        <ConnexionIndicator service="Facebook" :connected="false" :available="false"></ConnexionIndicator>
+        <ConnexionIndicator service="Google" :connected="$store.state.connexions.google"></ConnexionIndicator>
+        <ConnexionIndicator service="Facebook" :connected="$store.state.connexions.facebook"></ConnexionIndicator>
         <ConnexionIndicator service="LinkedIn" :connected="false" :available="false"></ConnexionIndicator>
       </v-list-item-group>
     </v-list>
