@@ -1,6 +1,6 @@
 <template>
 	<div class="main-login primary">
-		<bg-icons></bg-icons>
+		<bg-icons :color="'white'" :number="30"></bg-icons>
 		<v-card class="card">
 			<v-card-text>
 				<v-row class="login-row">

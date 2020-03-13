@@ -3,11 +3,12 @@
 </template>
 
 <script>
+import { getColorFilter } from "../../utils/utils"
 export default {
+	props: ["color", "number"],
 	data() {
 		return {
-			icons: ["bike", "car"],
-			nb_icons: 5,
+			icons: ["account", "crosshairs-gps", "fingerprint", "magnify"],
 			elements: [],
 			height: 0,
 			width: 0
@@ -22,7 +23,7 @@ export default {
 			this.height = this.getHeight()
 			this.width = this.getWidth()
 
-			for (let i = 0; i < this.nb_icons; i++) {
+			for (let i = 0; i < this.number; i++) {
 				this.newElement()
 			}
 		},
@@ -30,6 +31,7 @@ export default {
 			let icon = this.icons[Math.floor(Math.random() * this.icons.length)]
 			let img = document.createElement("img")
 			img.src = `icons/${icon}.png`
+			img.style.filter = getColorFilter(this.color)
 			img.style.position = "absolute"
 
 			let x = Math.floor(Math.random() * this.width)
@@ -55,7 +57,7 @@ export default {
 			return element
 		},
 		animate() {
-			let id = setInterval(this.frame, 50)
+			let id = setInterval(this.frame, 30)
 		},
 		frame() {
 			for (let el of this.elements) {
@@ -74,12 +76,7 @@ export default {
 			}
 		},
 		getWidth() {
-			return Math.max(
-				document.body.scrollWidth,
-				document.documentElement.scrollWidth,
-				document.documentElement.offsetWidth,
-				document.documentElement.clientWidth
-			)
+			return window.screen.width
 		},
 		getHeight() {
 			return Math.max(
