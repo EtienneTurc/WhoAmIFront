@@ -7,7 +7,7 @@
       </span>
     </a>
     <v-spacer></v-spacer>
-    <span class="menu-item log-out" v-if="$store.getters.googleConnected">
+    <span class="menu-item log-out" v-if="$store.getters.connected">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn class="danger white--text" v-on="on" @click="logout">Déconnexion</v-btn>
@@ -22,7 +22,6 @@
 export default {
   methods: {
     logout() {
-      this.$store.dispatch("REMOVE_DATA");
       this.$router.push("login");
     }
   }

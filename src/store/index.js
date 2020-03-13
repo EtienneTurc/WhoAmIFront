@@ -141,6 +141,9 @@ export const store = new Vuex.Store({
 
       let hasBasicData = !_.isEmpty(state.basic.facebook.peopleData);
       return hasBasicData || state.basic.facebook.fetching;
+    },
+    connected: state => {
+      return state.connexions.google || state.connexions.facebook;
     }
   }
 });
