@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-row v-if="ready">
+    <v-row>
       <v-col align="center" justify="center">
         <div class="dashboard-center">
           <!-- <h3 class="current-plot">{{plots[currentPlot].title}}</h3> -->
-          <div class="dashboard" v-if="ready">
+          <div class="dashboard">
             <Chart
               :height="'400px'"
               :width="'800px'"
@@ -33,15 +33,11 @@
         </div>
       </v-col>
     </v-row>
-    <v-row v-else>
-      <Loader></Loader>
-    </v-row>
   </div>
 </template>
 
 <script>
 import Chart from "../utils/Chart";
-import Loader from "../utils/Loader";
 
 export default {
   data: () => {
@@ -82,8 +78,7 @@ export default {
     }
   },
   components: {
-    Chart,
-    Loader
+    Chart
   },
   mounted() {
     this.currentPlot = "mails envoyés";
