@@ -110,11 +110,12 @@ export default {
       loginWithFacebook: true
     };
   },
-  mounted() {
+  async mounted() {
+    await logOut(Object.keys(this.$store.state.connexions), this);
     this.swiper = this.$refs.welcomeSwiper.swiper;
   },
   created() {
-    logOut(Object.keys(this.$store.state.connexions), this);
+    // logOut(Object.keys(this.$store.state.connexions), this);
   },
   computed: {
     toLog: function() {
