@@ -1,11 +1,10 @@
 <template>
   <div>
-    <!-- <v-card> -->
-    <v-row>
+    <v-row v-if="ready">
       <v-col align="center" justify="center">
         <div class="dashboard-center">
           <!-- <h3 class="current-plot">{{plots[currentPlot].title}}</h3> -->
-          <div class="dashboard">
+          <div class="dashboard" v-if="ready">
             <Chart
               :height="'400px'"
               :width="'800px'"
@@ -14,7 +13,6 @@
               :distribution="distribution"
             ></Chart>
             <div class="controls">
-              <!-- <div class="chart-selector"> -->
               <div class="combo">
                 <v-combobox
                   v-model="currentPlot"
@@ -24,27 +22,26 @@
                   dense
                 ></v-combobox>
               </div>
-
-              <!-- </div>
-              <div class="chart-options">-->
               <div class="radio">
                 <v-radio-group v-model="chartType" row>
                   <v-radio label="Simple" value="point"></v-radio>
                   <v-radio label="Cumulé" value="lines"></v-radio>
                 </v-radio-group>
               </div>
-
-              <!-- </div> -->
             </div>
           </div>
         </div>
       </v-col>
+    </v-row>
+    <v-row v-else>
+      <Loader></Loader>
     </v-row>
   </div>
 </template>
 
 <script>
 import Chart from "../utils/Chart";
+import Loader from "../utils/Loader";
 
 export default {
   data: () => {
@@ -76,7 +73,8 @@ export default {
       return this.plots[this.currentPlot].distribution;
     },
     ready: function() {
-      if (Boolean(this.plots[this.currentPlot].distribution.length)) {
+      if (this.$store.state.analytics.google.fetching == false) {
+        this.$set(this, "currentPlot", "mails envoyés");
         return true;
       } else {
         return false;
@@ -84,7 +82,8 @@ export default {
     }
   },
   components: {
-    Chart
+    Chart,
+    Loader
   },
   mounted() {
     this.currentPlot = "mails envoyés";
