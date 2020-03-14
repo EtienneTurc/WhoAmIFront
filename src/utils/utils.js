@@ -19,8 +19,8 @@ var login = {
 };
 
 function getDayInSeconds(date) {
-	let millisecondsInDay = 1000 * 3600 * 24;
-	return Math.floor(date / millisecondsInDay) * millisecondsInDay;
+  let millisecondsInDay = 1000 * 3600 * 24;
+  return Math.floor(date / millisecondsInDay) * millisecondsInDay;
 }
 
 // TO get colors get to this site:

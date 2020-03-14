@@ -95,36 +95,34 @@ import { login, logOut } from "@/utils/login"
 import BgIcons from "@/components/utils/BgIcons"
 
 export default {
-	data: () => {
-		return {
-			swiper: null,
-			loginWithGoogle: true,
-			loginWithFacebook: true
-		}
-	},
-	components: {
-		"bg-icons": BgIcons
-	},
-	mounted() {
-		this.swiper = this.$refs.welcomeSwiper.swiper
-	},
-	created() {
-		logOut(Object.keys(this.$store.state.connexions), this)
-	},
-	computed: {
-		toLog: function() {
-			return [
-				...(this.loginWithGoogle ? ["google"] : []),
-				...(this.loginWithFacebook ? ["facebook"] : [])
-			]
-		}
-	},
-	methods: {
-		startLogin() {
-			login(this.toLog)
-		}
-	}
-}
+  data: () => {
+    return {
+      swiper: null,
+      loginWithGoogle: true,
+      loginWithFacebook: true
+    };
+  },
+  async mounted() {
+    await logOut(Object.keys(this.$store.state.connexions), this);
+    this.swiper = this.$refs.welcomeSwiper.swiper;
+  },
+  created() {
+    // logOut(Object.keys(this.$store.state.connexions), this);
+  },
+  computed: {
+    toLog: function() {
+      return [
+        ...(this.loginWithGoogle ? ["google"] : []),
+        ...(this.loginWithFacebook ? ["facebook"] : [])
+      ];
+    }
+  },
+  methods: {
+    startLogin() {
+      login(this.toLog);
+    }
+  }
+};
 </script>
 
 

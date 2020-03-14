@@ -1,32 +1,38 @@
 <template>
-  <div class="section">
-    <h1>Dashboard</h1>
-    <div class="dashboard-center">
-      <h3 class="current-plot">{{plots[currentPlot].title}}</h3>
-      <div v-show="ready" class="dashboard">
-        <Chart
-          :height="'400px'"
-          :width="'800px'"
-          :cumulated="chartType=='lines'"
-          :type="chartType"
-          :distribution="distribution"
-        ></Chart>
-        <div class="chart-selector">
-          <v-radio-group v-model="currentPlot" row>
-            <v-radio label="Mails envoyés" value="mailsSent"></v-radio>
-            <v-radio label="Mails reçus" value="mailsReceived"></v-radio>
-            <v-radio label="Lydia" value="lydia"></v-radio>
-            <v-radio label="Amazon" value="amazon"></v-radio>
-          </v-radio-group>
+  <div>
+    <v-row>
+      <v-col align="center" justify="center">
+        <div class="dashboard-center">
+          <!-- <h3 class="current-plot">{{plots[currentPlot].title}}</h3> -->
+          <div class="dashboard">
+            <Chart
+              :height="'400px'"
+              :width="'800px'"
+              :cumulated="chartType=='lines'"
+              :type="chartType"
+              :distribution="distribution"
+            ></Chart>
+            <div class="controls">
+              <div class="combo">
+                <v-combobox
+                  v-model="currentPlot"
+                  :items="Object.keys(plots)"
+                  label="Choissez les données à afficher"
+                  outlined
+                  dense
+                ></v-combobox>
+              </div>
+              <div class="radio">
+                <v-radio-group v-model="chartType" row>
+                  <v-radio label="Simple" value="point"></v-radio>
+                  <v-radio label="Cumulé" value="lines"></v-radio>
+                </v-radio-group>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="chart-options">
-          <v-radio-group v-model="chartType" row>
-            <v-radio label="Simple" value="point"></v-radio>
-            <v-radio label="Cumulé" value="lines"></v-radio>
-          </v-radio-group>
-        </div>
-      </div>
-    </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -36,14 +42,14 @@ import Chart from "../utils/Chart";
 export default {
   data: () => {
     return {
-      currentPlot: "mailsSent",
+      currentPlot: "mails envoyés",
       chartType: "lines",
       plots: {
-        mailsSent: {
+        "mails envoyés": {
           title: "Votre fréquence d'envoi de mail",
           distribution: []
         },
-        mailsReceived: {
+        "mails reçus": {
           title: "Votre fréquence de réception de mail",
           distribution: []
         },
@@ -63,27 +69,34 @@ export default {
       return this.plots[this.currentPlot].distribution;
     },
     ready: function() {
-      return this.plots[this.currentPlot].distribution.length;
+      if (this.$store.state.analytics.google.fetching == false) {
+        this.$set(this, "currentPlot", "mails envoyés");
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   components: {
     Chart
   },
-  mounted() {},
+  mounted() {
+    this.currentPlot = "mails envoyés";
+  },
   created() {
     this.$store.watch(
       (state, getters) => state.basic.google.mailData,
       (newValue, oldValue) => {
         if (newValue != null) {
           this.$set(
-            this.plots.mailsReceived,
+            this.plots["mails reçus"],
             "distribution",
             this.$store.state.basic.google.mailData.received.distribution
           );
         }
         if (newValue != null) {
           this.$set(
-            this.plots.mailsSent,
+            this.plots["mails envoyés"],
             "distribution",
             this.$store.state.basic.google.mailData.sent.distribution
           );
@@ -122,13 +135,10 @@ export default {
 .section {
   width: 100%;
 }
-.chart-placeholder {
-  background-color: teal;
-  width: 60%;
-  height: 50%;
-}
 .chart-selector {
   max-width: 300px;
+}
+.dashboard-center {
 }
 .dashboard {
   position: relative;
@@ -137,5 +147,14 @@ export default {
   transform: translateX(-50%);
   height: 400px;
   width: 800px;
+}
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  .radio {
+    margin-bottom: 15px;
+  }
 }
 </style>
