@@ -1,5 +1,5 @@
 <template>
-  <vue-word-cloud :words="words" :color="color" font-family="Anton" />
+  <vue-word-cloud :words="words" :color="color" :rotation="rotation" font-family="Anton" />
 </template>
 
 <script>
@@ -31,6 +31,9 @@ export default {
     },
     color: function() {
       return _.sample(["#2C3E50", "#772D2D", "#0184AF"]);
+    },
+    rotation: function(elt) {
+      return _.sample([0, 0, 0.25]); // 1/3 of words will be shifted by 90°
     }
   },
   mounted: async function() {

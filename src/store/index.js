@@ -5,7 +5,7 @@ let config = require("../config/config.json");
 
 Vue.use(Vuex);
 
-import { googleHelpers, facebookHelpers, fetchers } from "./api";
+import { fetchers } from "./api";
 import { cleaners } from "./helpers";
 import { getSessions } from "../utils/login";
 
@@ -58,16 +58,13 @@ export const store = new Vuex.Store({
             apiCaller(context, this._vm);
           });
           fetchers.analytics[service].forEach(apiCaller => {
-            // console.log(apiCaller);
             apiCaller(context, this._vm);
           });
-          // console.log(service);
         } else if (
           !context.state.connexions[service] &&
           Object(context.getters)[`${service}Data`]
         ) {
           // remove data when service is connected and there is data
-          console.log("removing data for service ", service);
           cleaners[service](context);
         }
       });

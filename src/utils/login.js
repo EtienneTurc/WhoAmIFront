@@ -40,6 +40,7 @@ let logOut = async function(services, vm) {
       services: services
     }
   );
+  return sessions;
 };
 
 export { login, getSessions, logOut };
