@@ -27,7 +27,7 @@ import Map from "../widgets/Map";
 import Dashboard from "../widgets/Dashboard";
 import WordCloud from "../widgets/WordCloud";
 
-import { login, logOut } from "../../utils/login"
+import { login, logOut } from "../../utils/login";
 
 export default {
   components: {
@@ -56,9 +56,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  &.id {
-    transform: scale(1);
-  }
   &.word-cloud {
     margin-top: 100px;
     width: 100%;
