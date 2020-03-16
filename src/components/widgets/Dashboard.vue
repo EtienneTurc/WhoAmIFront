@@ -3,7 +3,6 @@
     <v-row>
       <v-col align="center" justify="center">
         <div class="dashboard-center" v-show="ready">
-          <!-- <h3 class="current-plot">{{plots[currentPlot].title}}</h3> -->
           <div class="dashboard">
             <Chart
               :height="'400px'"
