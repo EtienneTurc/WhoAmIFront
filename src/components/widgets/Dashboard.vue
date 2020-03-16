@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col align="center" justify="center">
-        <div class="dashboard-center">
+        <div class="dashboard-center" v-show="ready">
           <!-- <h3 class="current-plot">{{plots[currentPlot].title}}</h3> -->
           <div class="dashboard">
             <Chart
@@ -31,6 +31,9 @@
             </div>
           </div>
         </div>
+        <div v-if="!ready">
+          <Loader></Loader>
+        </div>
       </v-col>
     </v-row>
   </div>
@@ -38,6 +41,7 @@
 
 <script>
 import Chart from "../utils/Chart";
+import Loader from "../utils/Loader";
 
 export default {
   data: () => {
@@ -78,7 +82,8 @@ export default {
     }
   },
   components: {
-    Chart
+    Chart,
+    Loader
   },
   mounted() {
     this.currentPlot = "mails envoyés";
@@ -137,8 +142,6 @@ export default {
 }
 .chart-selector {
   max-width: 300px;
-}
-.dashboard-center {
 }
 .dashboard {
   position: relative;
