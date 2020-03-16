@@ -12,7 +12,7 @@
 </template>
     
 <script>
-import ConnexionIndicator from "@/components/ConnexionIndicator";
+import ConnexionIndicator from "@/components/utils/ConnexionIndicator";
 
 export default {
   components: {

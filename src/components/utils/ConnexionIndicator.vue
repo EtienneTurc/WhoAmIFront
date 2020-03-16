@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { login, logOut } from "../utils/login";
+import { login, logOut } from "@/utils/login";
 
 export default {
   props: {
