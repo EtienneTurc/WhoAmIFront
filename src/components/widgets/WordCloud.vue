@@ -1,5 +1,7 @@
 <template>
-	<vue-word-cloud :words="words" :color="color" :rotation="rotation" font-family="Anton" />
+	<div class="word-cloud">
+		<vue-word-cloud :words="words" :color="color" :rotation="rotation" font-family="Anton" />
+	</div>
 </template>
 
 <script>
@@ -39,10 +41,18 @@ export default {
 	},
 	mounted: async function() {
 		this.startGettingWords()
+		// this.$set(this.words, this.words.length, "bla")
 	}
 }
 </script>
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
+
+.word-cloud {
+	width: 500px;
+	height: 200px;
+	/* max-height: 200px;
+	min-height: 200px; */
+}
 </style>

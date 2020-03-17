@@ -40,7 +40,11 @@ export default {
 			Plotly.newPlot(
 				this.$refs.plot,
 				data,
-				{ paper_bgcolor: "#fafafa", plot_bgcolor: "#fafafa" },
+				{
+					margin: {
+						t: 10
+					}
+				},
 				{ displayModeBar: false }
 			)
 		},
