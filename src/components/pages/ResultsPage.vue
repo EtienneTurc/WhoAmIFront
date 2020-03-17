@@ -1,7 +1,7 @@
 <template>
   <div class="widget-placeholder container">
     <card>
-      <template v-slot:title>Ma carte d'idendité</template>
+      <template v-slot:title>Ma carte d'identité</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" class="mr-4" max-width="30px"></v-img>
         <v-img src="@/assets/img/fb_icon.png" max-width="30px"></v-img>
@@ -11,7 +11,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Mes positions</template>
+      <template v-slot:title>Mes trajets</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
@@ -20,7 +20,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Graph</template>
+      <template v-slot:title>Graphe</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
