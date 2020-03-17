@@ -1,34 +1,37 @@
 <template>
-  <div class="center">
-    <div class="controls">
-      <div class="combo">
-        <v-combobox
-          v-model="currentPlot"
-          :items="Object.keys(plots)"
-          label="Choissez les données à afficher"
-          outlined
-          dense
-        ></v-combobox>
+  <Hoverable name="Google">
+    <div class="center">
+      <div class="controls">
+        <div class="combo">
+          <v-combobox
+            v-model="currentPlot"
+            :items="Object.keys(plots)"
+            label="Choissez les données à afficher"
+            outlined
+            dense
+          ></v-combobox>
+        </div>
+        <div class="radio">
+          <v-radio-group v-model="chartType" row>
+            <v-radio label="Simple" value="point"></v-radio>
+            <v-radio label="Cumulé" value="lines"></v-radio>
+          </v-radio-group>
+        </div>
       </div>
-      <div class="radio">
-        <v-radio-group v-model="chartType" row>
-          <v-radio label="Simple" value="point"></v-radio>
-          <v-radio label="Cumulé" value="lines"></v-radio>
-        </v-radio-group>
-      </div>
+      <Chart
+        :height="'400px'"
+        :width="'600px'"
+        :cumulated="chartType=='lines'"
+        :type="chartType"
+        :distribution="distribution"
+      ></Chart>
     </div>
-    <Chart
-      :height="'400px'"
-      :width="'600px'"
-      :cumulated="chartType=='lines'"
-      :type="chartType"
-      :distribution="distribution"
-    ></Chart>
-  </div>
+  </Hoverable>
 </template>
 
 <script>
 import Chart from "../utils/Chart";
+import Hoverable from "../utils/Hoverable";
 
 export default {
   data: () => {
@@ -69,7 +72,8 @@ export default {
     }
   },
   components: {
-    Chart
+    Chart,
+    Hoverable
   },
   mounted() {
     this.currentPlot = "mails envoyés";

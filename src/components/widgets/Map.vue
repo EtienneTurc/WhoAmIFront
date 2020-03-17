@@ -1,14 +1,19 @@
 <template>
-  <div class="map">
-    <Map :height="'90%'" :width="'90%'" :places="places"></Map>
-  </div>
+  <Hoverable name="Google">
+    <div class="map">
+      <Map :height="'90%'" :width="'90%'" :places="places"></Map>
+    </div>
+  </Hoverable>
 </template>
 
 <script>
 import Map from "@/components/utils/Map";
+import Hoverable from "@/components/utils/Hoverable";
+
 export default {
   components: {
-    Map
+    Map,
+    Hoverable
   },
   computed: {
     places() {
