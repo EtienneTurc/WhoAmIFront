@@ -1,55 +1,69 @@
 <template>
-  <div class="main">
-    <div class="header">
-      <div class="white--text text-uppercase header-text">Carte d'identité WEB</div>
-    </div>
-    <div class="center">
-      <div class="picture-avatar">
-        <div v-if="$store.state.basic.facebook.peopleData != null">
-          <img
-            :src="$store.state.basic.facebook.peopleData.picture.data.url"
-            class="profile-picture"
-          />
-        </div>
+  <Hoverable name="Google">
+    <div class="main">
+      <div class="header">
+        <div class="white--text text-uppercase header-text">Carte d'identité WEB</div>
       </div>
-      <div class="id-info" v-if="$store.state.basic.google.peopleData != null">
-        <div class="name id-info-block">
-          <div class="id-info-label">Nom :</div>
-          <div
-            class="id-info-item"
-          >{{ this.$store.state.basic.google.peopleData.lastName | prettyName }}</div>
+      <div class="center">
+        <div class="picture-avatar">
+          <div v-if="$store.state.basic.facebook.peopleData != null">
+            <Hoverable name="Facebook">
+              <img
+                :src="$store.state.basic.facebook.peopleData.picture.data.url"
+                class="profile-picture"
+              />
+            </Hoverable>
+          </div>
         </div>
-        <div class="name id-info-block">
-          <div class="id-info-label">Prénom :</div>
-          <div
-            class="id-info-item"
-          >{{ this.$store.state.basic.google.peopleData.firstName | prettyName }}</div>
-        </div>
-        <div class="date id-info-block">
-          <div class="id-info-label">Né(e) le :</div>
-          <div
-            class="id-info-item"
-          >{{ this.$store.state.basic.google.peopleData.birthDate | prettyDate }}</div>
-        </div>
-        <div class="name id-info-block">
-          <div class="id-info-label">Adresse(s) mail :</div>
-          <ul>
-            <li
-              v-for="mail in this.$store.state.basic.google.peopleData.mails"
-              v-bind:key="mail"
+        <div class="id-info" v-if="$store.state.basic.google.peopleData != null">
+          <div class="name id-info-block">
+            <div class="id-info-label">Nom :</div>
+            <div
               class="id-info-item"
-            >{{mail}}</li>
-          </ul>
-        </div>
-        <div class="name id-info-block">
-          <div class="id-info-label">Adresse(s) postale(s) :</div>
-          <div class="id-info-item">{{this.$store.state.basic.google.peopleData.addresses[0]}}</div>
+            >{{ this.$store.state.basic.google.peopleData.lastName | prettyName }}</div>
+          </div>
+          <div class="name id-info-block">
+            <div class="id-info-label">Prénom :</div>
+            <div
+              class="id-info-item"
+            >{{ this.$store.state.basic.google.peopleData.firstName | prettyName }}</div>
+          </div>
+          <div class="date id-info-block">
+            <div class="id-info-label">Né(e) le :</div>
+            <div
+              class="id-info-item"
+            >{{ this.$store.state.basic.google.peopleData.birthDate | prettyDate }}</div>
+          </div>
+          <div class="name id-info-block">
+            <div class="id-info-label">Adresse(s) mail :</div>
+            <ul>
+              <li
+                v-for="mail in this.$store.state.basic.google.peopleData.mails"
+                v-bind:key="mail"
+                class="id-info-item"
+              >{{mail}}</li>
+            </ul>
+          </div>
+          <div class="name id-info-block">
+            <div class="id-info-label">Adresse(s) postale(s) :</div>
+            <div class="id-info-item">{{this.$store.state.basic.google.peopleData.addresses[0]}}</div>
+          </div>
         </div>
       </div>
+      <div class="footer"></div>
     </div>
-    <div class="footer"></div>
-  </div>
+  </Hoverable>
 </template>
+
+<script>
+import Hoverable from "../utils/Hoverable";
+
+export default {
+  components: {
+    Hoverable
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap");

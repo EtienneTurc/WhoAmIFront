@@ -15,11 +15,17 @@
         <span>Nous supprimerons immédiatement toutes les données collectées sur vos comptes</span>
       </v-tooltip>
     </span>
+    <OriginIndicator class="origin-indicator"></OriginIndicator>
   </v-row>
 </template>
 
 <script>
+import OriginIndicator from "@/components/utils/OriginIndicator";
+
 export default {
+  components: {
+    OriginIndicator
+  },
   methods: {
     logout() {
       this.$router.push("login");
@@ -31,6 +37,14 @@ export default {
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One&display=swap");
 
+.origin-indicator {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .header {
   border-bottom-style: solid;
 }

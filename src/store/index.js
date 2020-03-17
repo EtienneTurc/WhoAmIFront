@@ -17,6 +17,7 @@ export const store = new Vuex.Store({
       facebook: false,
       linkedin: false
     },
+    hoveredElements: [],
     basic: {
       google: {
         attemptingConnection: false,
@@ -118,6 +119,15 @@ export const store = new Vuex.Store({
     },
     SET_GOOGLE_ANALYTICS_FETCHING_STATE(state, payload) {
       state.analytics.google.fetching = payload;
+    },
+    SET_HOVERED_ELEMENT_NAME(state, payload) {
+      state.hoveredElement.name = payload;
+    },
+    STACK_HOVERED_ELEMENT_NAME(state, payload) {
+      state.hoveredElements.push(payload);
+    },
+    POP_HOVERED_ELEMENT_NAME(state) {
+      state.hoveredElements.pop();
     }
   },
   getters: {
@@ -134,8 +144,6 @@ export const store = new Vuex.Store({
       );
     },
     facebookData: state => {
-      console.log(state.basic.facebook.peopleData);
-
       let hasBasicData = !_.isEmpty(state.basic.facebook.peopleData);
       return hasBasicData || state.basic.facebook.fetching;
     },
