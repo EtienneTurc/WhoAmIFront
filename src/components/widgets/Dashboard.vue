@@ -1,46 +1,34 @@
 <template>
-  <div>
-    <v-row>
-      <v-col align="center" justify="center">
-        <div class="dashboard-center" v-show="ready">
-          <div class="dashboard">
-            <Chart
-              :height="'400px'"
-              :width="'800px'"
-              :cumulated="chartType=='lines'"
-              :type="chartType"
-              :distribution="distribution"
-            ></Chart>
-            <div class="controls">
-              <div class="combo">
-                <v-combobox
-                  v-model="currentPlot"
-                  :items="Object.keys(plots)"
-                  label="Choissez les données à afficher"
-                  outlined
-                  dense
-                ></v-combobox>
-              </div>
-              <div class="radio">
-                <v-radio-group v-model="chartType" row>
-                  <v-radio label="Simple" value="point"></v-radio>
-                  <v-radio label="Cumulé" value="lines"></v-radio>
-                </v-radio-group>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div v-if="!ready">
-          <Loader></Loader>
-        </div>
-      </v-col>
-    </v-row>
+  <div class="center">
+    <div class="controls">
+      <div class="combo">
+        <v-combobox
+          v-model="currentPlot"
+          :items="Object.keys(plots)"
+          label="Choissez les données à afficher"
+          outlined
+          dense
+        ></v-combobox>
+      </div>
+      <div class="radio">
+        <v-radio-group v-model="chartType" row>
+          <v-radio label="Simple" value="point"></v-radio>
+          <v-radio label="Cumulé" value="lines"></v-radio>
+        </v-radio-group>
+      </div>
+    </div>
+    <Chart
+      :height="'400px'"
+      :width="'600px'"
+      :cumulated="chartType=='lines'"
+      :type="chartType"
+      :distribution="distribution"
+    ></Chart>
   </div>
 </template>
 
 <script>
 import Chart from "../utils/Chart";
-import Loader from "../utils/Loader";
 
 export default {
   data: () => {
@@ -81,8 +69,7 @@ export default {
     }
   },
   components: {
-    Chart,
-    Loader
+    Chart
   },
   mounted() {
     this.currentPlot = "mails envoyés";
@@ -142,21 +129,16 @@ export default {
 .chart-selector {
   max-width: 300px;
 }
-.dashboard {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 400px;
-  width: 800px;
+
+.center {
+  margin: auto;
 }
+
 .controls {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  .radio {
-    margin-bottom: 15px;
-  }
+  margin-top: 20px;
 }
 </style>

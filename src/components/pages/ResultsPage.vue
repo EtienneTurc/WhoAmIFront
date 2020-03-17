@@ -1,27 +1,47 @@
 <template>
-  <div>
-    <v-row>
-      <v-col>
-        <div class="widget-placeholder id">
-          <ID></ID>
-        </div>
-        <div class="widget-placeholder">
-          <Map></Map>
-        </div>
-      </v-col>
-      <v-col>
-        <div class="right widget-placeholder">
-          <Dashboard></Dashboard>
-        </div>
-        <div class="widget-placeholder word-cloud">
-          <WordCloud></WordCloud>
-        </div>
-      </v-col>
-    </v-row>
+  <div class="widget-placeholder container">
+    <card>
+      <template v-slot:title>Ma carte d'idendité</template>
+      <template v-slot:icons>
+        <v-img src="@/assets/img/google_logo.png" class="mr-4" max-width="30px"></v-img>
+        <v-img src="@/assets/img/fb_icon.png" max-width="30px"></v-img>
+      </template>
+      <template v-slot:component>
+        <ID></ID>
+      </template>
+    </card>
+    <card>
+      <template v-slot:title>Mes positions</template>
+      <template v-slot:icons>
+        <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
+      </template>
+      <template v-slot:component>
+        <Map></Map>
+      </template>
+    </card>
+    <card>
+      <template v-slot:title>Graph</template>
+      <template v-slot:icons>
+        <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
+      </template>
+      <template v-slot:component>
+        <Dashboard></Dashboard>
+      </template>
+    </card>
+    <card>
+      <template v-slot:title>Mes centres d'intérêts</template>
+      <template v-slot:icons>
+        <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
+      </template>
+      <template v-slot:component>
+        <WordCloud></WordCloud>
+      </template>
+    </card>
   </div>
 </template>
 
 <script>
+import Card from "../utils/Card";
 import ID from "../widgets/ID";
 import Map from "../widgets/Map";
 import Dashboard from "../widgets/Dashboard";
@@ -31,6 +51,7 @@ import { login, logOut } from "../../utils/login";
 
 export default {
   components: {
+    Card,
     ID,
     Map,
     Dashboard,
@@ -45,22 +66,23 @@ export default {
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One&display=swap");
 
-.title {
-  margin-bottom: 2em;
-}
-.left,
-.right {
-  width: 100%;
-}
 .widget-placeholder {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  &.word-cloud {
-    margin-top: 100px;
-    width: 100%;
-    height: 200px;
-  }
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  // flex: 0 0 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.widget-placeholder > * {
+  flex-grow: 1;
+}
+
+.container {
+  max-width: 1300px;
+  margin: auto;
+  margin-bottom: 25px;
 }
 </style>
-
