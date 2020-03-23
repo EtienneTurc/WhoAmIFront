@@ -1,17 +1,17 @@
 <template>
   <div>
-    <span v-if="hoveredItem">{{hoveredItem}}</span>
+    <span v-if="hoveredItem">
+      <span>
+        Source :
+        <span class>{{hoveredItem}}</span>
+      </span>
+    </span>
     <span v-else>Survolez un élément pour afficher sa provenance</span>
   </div>
 </template>
 
 <script>
 export default {
-  // data: () => {
-  //   return {
-  //     hoveredItem: null
-  //   };
-  // }
   computed: {
     hoveredItem: function() {
       if (this.$store.state.hoveredElements.length) {
