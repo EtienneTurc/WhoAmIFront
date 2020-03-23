@@ -6,44 +6,34 @@
 			</div>
 			<div class="center">
 				<div class="picture-avatar">
-					<div v-if="$store.state.basic.facebook.peopleData != null">
+					<div>
 						<Hoverable name="Facebook">
-							<img :src="$store.state.basic.facebook.peopleData.picture.data.url" class="profile-picture" />
+							<img :src="data.picture.data.url" class="profile-picture" />
 						</Hoverable>
 					</div>
 				</div>
-				<div class="id-info" v-if="$store.state.basic.google.peopleData != null">
+				<div class="id-info">
 					<div class="name id-info-block">
 						<div class="id-info-label">Nom :</div>
-						<div
-							class="id-info-item"
-						>{{ this.$store.state.basic.google.peopleData.lastName | prettyName }}</div>
+						<div class="id-info-item">{{ data.lastName | prettyName }}</div>
 					</div>
 					<div class="name id-info-block">
 						<div class="id-info-label">Prénom :</div>
-						<div
-							class="id-info-item"
-						>{{ this.$store.state.basic.google.peopleData.firstName | prettyName }}</div>
+						<div class="id-info-item">{{ data.firstName | prettyName }}</div>
 					</div>
 					<div class="date id-info-block">
 						<div class="id-info-label">Né(e) le :</div>
-						<div
-							class="id-info-item"
-						>{{ this.$store.state.basic.google.peopleData.birthDate | prettyDate }}</div>
+						<div class="id-info-item">{{ data.birthDate | prettyDate }}</div>
 					</div>
 					<div class="name id-info-block">
 						<div class="id-info-label">Adresse(s) mail :</div>
 						<ul>
-							<li
-								v-for="mail in this.$store.state.basic.google.peopleData.mails"
-								v-bind:key="mail"
-								class="id-info-item"
-							>{{mail}}</li>
+							<li v-for="mail in data.mails" v-bind:key="mail" class="id-info-item">{{mail}}</li>
 						</ul>
 					</div>
 					<div class="name id-info-block">
 						<div class="id-info-label">Adresse(s) postale(s) :</div>
-						<div class="id-info-item">{{this.$store.state.basic.google.peopleData.addresses[0]}}</div>
+						<div class="id-info-item">{{data.addresses[0]}}</div>
 					</div>
 				</div>
 			</div>
@@ -54,10 +44,16 @@
 
 <script>
 import Hoverable from "../utils/Hoverable"
+import { widgetMixin } from "../../utils/widgetMixin"
 
 export default {
+	mixins: [widgetMixin],
 	components: {
 		Hoverable
+	},
+	async mounted() {
+		let response = await this.fetchData("/component/id")
+		this.data = response.data
 	}
 }
 </script>
