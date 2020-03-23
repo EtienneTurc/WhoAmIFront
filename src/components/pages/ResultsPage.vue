@@ -11,7 +11,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Mes trajets</template>
+      <template v-slot:title>Mes positions</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
@@ -20,7 +20,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Graphe</template>
+      <template v-slot:title>Suivi de mes données</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
