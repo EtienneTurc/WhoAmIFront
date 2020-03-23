@@ -52,6 +52,7 @@ export default {
 .word-cloud {
 	width: 500px;
 	height: 200px;
+	margin: auto;
 	/* max-height: 200px;
 	min-height: 200px; */
 }

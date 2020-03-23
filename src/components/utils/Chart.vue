@@ -1,5 +1,5 @@
 <template>
-	<div ref="plot" :style="`height:${height};width:${width}`"></div>
+	<div ref="plot" class="center" :style="`height:${height};width:${width}`"></div>
 </template>
 
 <script>
