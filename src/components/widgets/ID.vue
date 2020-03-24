@@ -4,7 +4,8 @@
 			<div class="header">
 				<div class="white--text text-uppercase header-text">Carte d'identité WEB</div>
 			</div>
-			<div class="center">
+			<div v-if="!data">Loader</div>
+			<div v-else class="center">
 				<div class="picture-avatar">
 					<div v-if="data.picture">
 						<Hoverable name="Facebook">

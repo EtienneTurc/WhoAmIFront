@@ -79,14 +79,14 @@ export default {
 					this.data.mails.data.received.distribution
 				)
 			}
-			if (this.data.lydia.data) {
+			if (this.data.lydia && this.data.lydia.data) {
 				this.$set(
 					this.plots.lydia,
 					"distribution",
 					this.data.lydia.data
 				)
 			}
-			if (this.data.amazon.data) {
+			if (this.data.amazon && this.data.amazon.data) {
 				this.$set(
 					this.plots.amazon,
 					"distribution",
