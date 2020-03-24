@@ -7,8 +7,10 @@
 <script>
 import VueWordCloud from "vuewordcloud"
 import lodash from "lodash"
+import { widgetMixin } from "../../utils/widgetMixin"
 
 export default {
+	mixins: [widgetMixin],
 	components: {
 		[VueWordCloud.name]: VueWordCloud
 	},
@@ -39,9 +41,18 @@ export default {
 			return _.sample([0, 0, 0.25]) // 1/3 of words will be shifted by 90°
 		}
 	},
+	watch: {
+		data() {
+			let words = Object.keys(this.data.words.data)
+			words.forEach(word => {
+				if (!this.words.includes(word)) {
+					this.$set(this.words, this.words.length, word)
+				}
+			})
+		}
+	},
 	mounted: async function() {
-		this.startGettingWords()
-		// this.$set(this.words, this.words.length, "bla")
+		this.$_widgetMixin_fetchData("/component/words")
 	}
 }
 </script>
