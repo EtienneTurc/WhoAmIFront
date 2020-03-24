@@ -55,7 +55,7 @@ export default {
 		return {}
 	},
 	async mounted() {
-		this.fetchData("/component/id", {}, 1000)
+		this.$_widgetMixin_fetchData("/component/id", {}, 1000)
 	}
 }
 </script>

@@ -83,21 +83,21 @@ export default {
 				this.$set(
 					this.plots.lydia,
 					"distribution",
-					this.data.lydia.data.distribution
+					this.data.lydia.data
 				)
 			}
 			if (this.data.amazon.data) {
 				this.$set(
 					this.plots.amazon,
 					"distribution",
-					this.data.lydia.data.distribution
+					this.data.amazon.data
 				)
 			}
 		}
 	},
 	async mounted() {
 		this.currentPlot = "mails envoyés"
-		this.fetchData("/component/dashboard")
+		this.$_widgetMixin_fetchData("/component/dashboard")
 	}
 }
 </script>
