@@ -16,7 +16,7 @@ const widgetMixin = {
 				// if (response.data.meta && response.data.meta.processing)
 				// 	setTimeout(() => this._widgetMixin_fetchData(route, params, timeout), timeout);
 
-				console.log(route, response, timeout)
+				console.log(route, response.data.data, timeout)
 				this.data = response.data.data
 			} catch (err) {
 				console.log(err)
