@@ -65,35 +65,39 @@ export default {
 	components: {
 		Chart
 	},
+	watch: {
+		data() {
+			if (this.data.mails.data) {
+				this.$set(
+					this.plots["mails envoyés"],
+					"distribution",
+					this.data.mails.data.sent.distribution
+				)
+				this.$set(
+					this.plots["mails reçus"],
+					"distribution",
+					this.data.mails.data.received.distribution
+				)
+			}
+			if (this.data.lydia.data) {
+				this.$set(
+					this.plots.lydia,
+					"distribution",
+					this.data.lydia.data.distribution
+				)
+			}
+			if (this.data.amazon.data) {
+				this.$set(
+					this.plots.amazon,
+					"distribution",
+					this.data.lydia.data.distribution
+				)
+			}
+		}
+	},
 	async mounted() {
 		this.currentPlot = "mails envoyés"
-		let response = await this.fetchData("/component/dashboard")
-		if (response.mails.data) {
-			this.$set(
-				this.plots["mails envoyés"],
-				"distribution",
-				response.mails.data.sent.distribution
-			)
-			this.$set(
-				this.plots["mails reçus"],
-				"distribution",
-				response.mails.data.received.distribution
-			)
-		}
-		if (response.lydia.data) {
-			this.$set(
-				this.plots.lydia,
-				"distribution",
-				response.lydia.data.distribution
-			)
-		}
-		if (response.amazon.data) {
-			this.$set(
-				this.plots.amazon,
-				"distribution",
-				response.lydia.data.distribution
-			)
-		}
+		this.fetchData("/component/dashboard")
 	}
 }
 </script>

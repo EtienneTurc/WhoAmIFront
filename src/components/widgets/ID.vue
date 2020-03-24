@@ -6,7 +6,7 @@
 			</div>
 			<div class="center">
 				<div class="picture-avatar">
-					<div>
+					<div v-if="data.picture">
 						<Hoverable name="Facebook">
 							<img :src="data.picture.data.url" class="profile-picture" />
 						</Hoverable>
@@ -27,13 +27,13 @@
 					</div>
 					<div class="name id-info-block">
 						<div class="id-info-label">Adresse(s) mail :</div>
-						<ul>
+						<ul v-if="data.mails">
 							<li v-for="mail in data.mails" v-bind:key="mail" class="id-info-item">{{mail}}</li>
 						</ul>
 					</div>
 					<div class="name id-info-block">
 						<div class="id-info-label">Adresse(s) postale(s) :</div>
-						<div class="id-info-item">{{data.addresses[0]}}</div>
+						<div class="id-info-item" v-if="data.addresses">{{data.addresses[0]}}</div>
 					</div>
 				</div>
 			</div>
@@ -51,9 +51,11 @@ export default {
 	components: {
 		Hoverable
 	},
+	data() {
+		return {}
+	},
 	async mounted() {
-		let response = await this.fetchData("/component/id")
-		this.data = response.data
+		this.fetchData("/component/id", {}, 1000)
 	}
 }
 </script>
