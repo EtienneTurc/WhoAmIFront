@@ -1,6 +1,12 @@
 <template>
 	<div class="word-cloud">
-		<vue-word-cloud :words="words" :color="color" :rotation="rotation" font-family="Anton" />
+		<vue-word-cloud
+			:words="words"
+			:color="color"
+			:rotation="rotation"
+			font-family="Anton"
+			:font-size-ratio="5"
+		/>
 	</div>
 </template>
 
@@ -45,8 +51,12 @@ export default {
 		data() {
 			let words = Object.keys(this.data.words.data)
 			words.forEach(word => {
+				console.log(word)
 				if (!this.words.includes(word)) {
-					this.$set(this.words, this.words.length, word)
+					this.$set(this.words, this.words.length, [
+						word,
+						this.data.words.data[word]
+					])
 				}
 			})
 		}
