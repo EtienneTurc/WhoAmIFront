@@ -13,8 +13,8 @@ const widgetMixin = {
 			try {
 				let response = await this.$http.get(route, { params: params })
 
-				// if (response.data.meta && response.data.meta.processing)
-				// 	setTimeout(() => this._widgetMixin_fetchData(route, params, timeout), timeout);
+				if (response.data.meta && response.data.meta.processing)
+					setTimeout(() => { this.$_widgetMixin_fetchData(route, params, timeout) }, timeout);
 
 				console.log(route, response.data.data, timeout)
 				this.data = response.data.data

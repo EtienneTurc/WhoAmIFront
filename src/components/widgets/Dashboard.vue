@@ -67,7 +67,7 @@ export default {
 	},
 	watch: {
 		data() {
-			if (this.data.mails.data) {
+			if (this.data.mails && this.data.mails.data) {
 				this.$set(
 					this.plots["mails envoyés"],
 					"distribution",

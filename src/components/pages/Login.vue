@@ -1,6 +1,5 @@
 <template>
 	<div class="main-login primary">
-		<bg-icons :color="'white'" :number="30"></bg-icons>
 		<v-card class="card">
 			<v-card-text>
 				<v-row class="login-row">
@@ -84,7 +83,6 @@
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper"
 import { login, logOut } from "@/utils/login"
-import BgIcons from "@/components/utils/BgIcons"
 
 export default {
 	data: () => {
