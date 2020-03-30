@@ -47,6 +47,7 @@
 										class="checkbox"
 										input-value="true"
 										value
+										disabled
 									></v-checkbox>
 									<v-checkbox
 										v-model="loginWithFacebook"
