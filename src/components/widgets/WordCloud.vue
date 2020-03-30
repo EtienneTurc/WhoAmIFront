@@ -6,6 +6,7 @@
 			:rotation="rotation"
 			font-family="Anton"
 			:font-size-ratio="5"
+			:spacing="0.5"
 		/>
 	</div>
 </template>
@@ -38,7 +39,6 @@ export default {
 			if (this.data.words) {
 				let words = Object.keys(this.data.words.data)
 				words.forEach(word => {
-					console.log(word)
 					if (!this.words.includes(word)) {
 						this.$set(this.words, this.words.length, [
 							word,
