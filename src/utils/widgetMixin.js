@@ -5,9 +5,6 @@ const widgetMixin = {
 			meta: {}
 		}
 	},
-	// mounted() {
-	// 	this.fetch()
-	// },
 	methods: {
 		async $_widgetMixin_fetchData(route, params = null, timeout = 5000) {
 			try {
@@ -16,7 +13,7 @@ const widgetMixin = {
 				if (response.data.meta && response.data.meta.processing)
 					setTimeout(() => { this.$_widgetMixin_fetchData(route, params, timeout) }, timeout);
 
-				console.log(route, response.data.data, timeout)
+				console.log("Fetching:", route)
 				this.data = response.data.data
 			} catch (err) {
 				console.log(err)
