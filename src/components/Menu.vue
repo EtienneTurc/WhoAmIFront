@@ -1,57 +1,49 @@
 <template>
   <v-row>
-    <a @click="goToResults">
-      <span class="app-name">WhoAm.io</span>
+    <v-app-bar-nav-icon @click="$store.commit('SET_DRAWER_STATE', !$store.state.drawerState)"></v-app-bar-nav-icon>
+    <a @click="$router.push('/')">
+      <span class="app-name">
+        <img src="../assets/img/logo.png" class="logo" />
+      </span>
     </a>
     <v-spacer></v-spacer>
-    <span class="menu-item">
-      <v-btn text class="white--text" @click="goToAbout">About us</v-btn>
-    </span>
-    <span class="menu-item">
-      <v-btn text class="white--text" @click="goToContact">Contact</v-btn>
-    </span>
-    <span class="menu-item log-out">
+    <span class="menu-item log-out" v-if="$store.getters.connected">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" class="white--text" v-on="on" @click="logout">Log out</v-btn>
+          <v-btn class="danger white--text" v-on="on" @click="logout">Déconnexion</v-btn>
         </template>
-        <span>Log me out from all external accounts</span>
+        <span>Nous supprimerons immédiatement toutes les données collectées sur vos comptes</span>
       </v-tooltip>
     </span>
+    <OriginIndicator class="origin-indicator"></OriginIndicator>
   </v-row>
 </template>
 
 <script>
+import OriginIndicator from "@/components/utils/OriginIndicator";
+
 export default {
-  data: () => ({
-    loggedIn: false
-  }),
+  components: {
+    OriginIndicator
+  },
   methods: {
     logout() {
-      this.$store.commit("unsetTokenGoogle");
       this.$router.push("login");
-    },
-    goToAbout() {
-      this.$router.push("About");
-    },
-    goToContact() {
-      this.$router.push("Contact");
-    },
-    goToResults() {
-      this.$router.push("/");
     }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One&display=swap");
 
-.app-name {
-  font-family: "Fugaz One", cursive;
-  font-size: 3em;
-  color: white;
-  margin-left: 2em;
+.origin-indicator {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .header {
   border-bottom-style: solid;
@@ -68,5 +60,18 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   margin-left: 1em;
+}
+.app-name {
+  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.logo {
+  // margin-top: auto;
+  // margin-bottom: 0;
+  height: 80%;
+  top: 50%;
+  transform: translateY(-45%);
+  position: absolute;
 }
 </style>

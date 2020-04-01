@@ -1,16 +1,23 @@
 <template>
-  <div class="main">
-    <span>2019 - ENSTA Paris</span>
-  </div>
+	<div class="footer main text-center">
+		<span>{{ new Date().getFullYear() }} - ENSTA Paris</span>
+	</div>
 </template>
 
 <style scoped lang="scss">
 .main {
-  margin: auto;
-  /* background-color: #3c6382; */
-  color: white;
-  span {
-    margin: auto;
-  }
+	width: 100%;
+	margin: auto;
+	color: white;
+	span {
+		margin: auto;
+	}
+}
+
+.footer {
+	background-color: #2984af;
+	position: fixed;
+	left: 0;
+	bottom: 0;
 }
 </style>
