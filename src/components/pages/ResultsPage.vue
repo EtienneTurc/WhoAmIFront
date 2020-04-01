@@ -11,7 +11,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Mes positions</template>
+      <template v-slot:title>Mes localisations</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
@@ -20,7 +20,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Suivi de mes données</template>
+      <template v-slot:title>Graphes</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
@@ -29,7 +29,7 @@
       </template>
     </card>
     <card>
-      <template v-slot:title>Mes centres d'intérêts</template>
+      <template v-slot:title>Mes centres d'intérêt</template>
       <template v-slot:icons>
         <v-img src="@/assets/img/google_logo.png" max-width="30px"></v-img>
       </template>
@@ -59,7 +59,7 @@ export default {
   },
   created: async function() {
     await this.$store.dispatch("GET_CONNEXIONS_STATUS");
-    await this.$store.dispatch("SYNC_DATA");
+    // await this.$store.dispatch("SYNC_DATA");
   }
 };
 </script>

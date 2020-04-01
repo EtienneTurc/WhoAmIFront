@@ -1,6 +1,9 @@
 <template>
-  <Hoverable name="Google">
-    <div class="center">
+  <div>
+    <div v-if="meta.processing">
+      <Loader></Loader>
+    </div>
+    <div v-show="!meta.processing" class="center">
       <div class="controls">
         <div class="combo">
           <v-combobox
@@ -26,14 +29,17 @@
         :distribution="distribution"
       ></Chart>
     </div>
-  </Hoverable>
+  </div>
 </template>
 
 <script>
 import Chart from "../utils/Chart";
-import Hoverable from "../utils/Hoverable";
+import Loader from "../utils/Loader";
+
+import { widgetMixin } from "../../utils/widgetMixin";
 
 export default {
+  mixins: [widgetMixin],
   data: () => {
     return {
       currentPlot: "mails envoyés",
@@ -61,67 +67,37 @@ export default {
   computed: {
     distribution: function() {
       return this.plots[this.currentPlot].distribution;
-    },
-    ready: function() {
-      if (this.$store.state.analytics.google.fetching == false) {
-        this.$set(this, "currentPlot", "mails envoyés");
-        return true;
-      } else {
-        return false;
-      }
     }
   },
   components: {
     Chart,
-    Hoverable
+    Loader
   },
-  mounted() {
+  watch: {
+    data() {
+      if (this.data.mails && this.data.mails.data) {
+        this.$set(
+          this.plots["mails envoyés"],
+          "distribution",
+          this.data.mails.data.sent.distribution
+        );
+        this.$set(
+          this.plots["mails reçus"],
+          "distribution",
+          this.data.mails.data.received.distribution
+        );
+      }
+      if (this.data.lydia && this.data.lydia.data) {
+        this.$set(this.plots.lydia, "distribution", this.data.lydia.data);
+      }
+      if (this.data.amazon && this.data.amazon.data) {
+        this.$set(this.plots.amazon, "distribution", this.data.amazon.data);
+      }
+    }
+  },
+  async mounted() {
     this.currentPlot = "mails envoyés";
-  },
-  created() {
-    this.$store.watch(
-      (state, getters) => state.basic.google.mailData,
-      (newValue, oldValue) => {
-        if (newValue != null) {
-          this.$set(
-            this.plots["mails reçus"],
-            "distribution",
-            this.$store.state.basic.google.mailData.received.distribution
-          );
-        }
-        if (newValue != null) {
-          this.$set(
-            this.plots["mails envoyés"],
-            "distribution",
-            this.$store.state.basic.google.mailData.sent.distribution
-          );
-        }
-      }
-    );
-    this.$store.watch(
-      (state, getters) => state.analytics.google.data.lydia,
-      (newValue, oldValue) => {
-        if (newValue != null) {
-          this.$set(
-            this.plots.lydia,
-            "distribution",
-            this.$store.state.analytics.google.data.lydia
-          );
-        }
-      }
-    );
-    this.$store.watch(
-      (state, getters) => state.analytics.google.data.amazon,
-      (newValue, oldValue) => {
-        if (newValue != null) {
-          this.$set(
-            this.plots.amazon,
-            "distribution",
-            this.$store.state.analytics.google.data.amazon
-          );
-        }
-      }
-    );
+    this.$_widgetMixin_fetchData("/component/dashboard");
   }
 };
 </script>

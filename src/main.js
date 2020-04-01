@@ -21,9 +21,12 @@ axios.interceptors.response.use(
   },
   function(error) {
     // Do something with response error
-    if (error.response.status === 401) {
+    if (error.response.status && error.response.status === 401) {
       router.replace("/login");
+    } else {
+      console.log(error);
     }
+
     return Promise.reject(error.response);
   }
 );
@@ -34,11 +37,13 @@ axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 Vue.use(VueAxios, axios);
 
 Vue.filter("prettyName", function(name) {
+  if (!name) return "";
   let string = name.toLowerCase();
   return string.charAt(0).toUpperCase() + string.slice(1);
 });
 
 Vue.filter("prettyDate", function(date) {
+  if (!date) return "";
   let year = String(date.year);
   let month = String(date.month);
   let day = String(date.day);
