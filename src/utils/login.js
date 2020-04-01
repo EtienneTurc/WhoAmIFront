@@ -1,8 +1,10 @@
 import config from "../config/config.json";
 
-let getConsentUrl = function (conf, state) {
+let getConsentUrl = function (service, state) {
+	let conf = config[service]
 	let url = conf.url;
 	let queries = conf.params;
+	queries.redirect_uri = process.env["VUE_APP_" + service.toUpperCase() + "_REDIRECT_URL"]
 	queries.scope = queries.scope.join(conf.scope_separator);
 	let i = 0;
 	for (let q in queries) {
@@ -21,7 +23,7 @@ let login = function (nextElements) {
 		if (!config[el]) {
 			login(nextElements);
 		} else {
-			window.location.replace(getConsentUrl(config[el], nextElements));
+			window.location.replace(getConsentUrl(el, nextElements));
 		}
 	}
 };

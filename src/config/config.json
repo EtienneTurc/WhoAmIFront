@@ -12,8 +12,7 @@
 				"https://www.googleapis.com/auth/userinfo.email",
 				"https://www.googleapis.com/auth/contacts.readonly"
 			],
-			"response_type": "code",
-			"redirect_uri": "https://local-redirect.data-ensta.fr/oauthGoogle?port=8080"
+			"response_type": "code"
 		},
 		"scope_separator": " "
 	},
@@ -21,7 +20,6 @@
 		"url": "https://www.facebook.com/v6.0/dialog/oauth?",
 		"params": {
 			"client_id": "287942492167943",
-			"redirect_uri": "https://local-redirect.data-ensta.fr/oauthFacebook?port=8080",
 			"state": "",
 			"scope": [
 				"user_photos"
