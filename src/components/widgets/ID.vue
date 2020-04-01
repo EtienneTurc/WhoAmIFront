@@ -1,6 +1,6 @@
 <template>
   <Hoverable name="Google">
-    <div class="main" v-if="meta && meta.processing==false">
+    <div class="main" v-if="(meta && meta.available==true)">
       <div class="header">
         <div class="white--text text-uppercase header-text">Carte d'identité WEB</div>
       </div>
